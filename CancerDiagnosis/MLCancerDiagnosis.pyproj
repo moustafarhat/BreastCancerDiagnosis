@@ -23,12 +23,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CancerDiagnosisModel.py" />
+    <Compile Include="Data\new\dBAlgorithmus.py" />
+    <Compile Include="Data\new\dBAlgorithmus2.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Data\new\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\breast-cancer.data" />
+    <Content Include="Data\new\V.data" />
+    <Content Include="Data\new\W.data" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
