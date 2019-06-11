@@ -1,281 +1,172 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "# of rows: 699\n",
-      "   sample_code_number  clump_thickness  uniformity_cell_size  \\\n",
-      "0             1000025                5                     1   \n",
-      "1             1002945                5                     4   \n",
-      "2             1015425                3                     1   \n",
-      "3             1016277                6                     8   \n",
-      "4             1017023                4                     1   \n",
-      "\n",
-      "   uniformity_cell_shape  marginal_adhesion  single_epithelial_cell_size  \\\n",
-      "0                      1                  1                            2   \n",
-      "1                      4                  5                            7   \n",
-      "2                      1                  1                            2   \n",
-      "3                      8                  1                            3   \n",
-      "4                      1                  3                            2   \n",
-      "\n",
-      "  bare_nuclei  bland_chromatin  normal_nucleoli  mitoses  class  \n",
-      "0           1                3                1        1      2  \n",
-      "1          10                3                2        1      2  \n",
-      "2           2                3                1        1      2  \n",
-      "3           4                3                7        1      2  \n",
-      "4           1                3                1        1      2  \n",
-      "16\n",
-      "[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]\n",
-      "[2, 4, 2, 4, 2, 4, 2, 2, 2, 2, 2, 2, 4, 2, 4, 4, 2, 2, 4, 2, 4, 4, 2, 2, 4, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 2, 4, 4, 4, 4, 4, 4, 2, 4, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 2, 4, 4, 2, 4, 2, 4, 4, 2, 2, 4, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 4, 4, 4, 4, 2, 4, 2, 4, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2, 4, 4, 4, 2, 4, 2, 4, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 4, 2, 2, 4, 2, 4, 4, 2, 2, 4, 2, 2, 4, 4, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 4, 4, 4, 2, 4, 2, 2, 2, 2, 2, 4, 4, 2, 4, 4, 4, 2, 4, 4, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 2, 2, 2, 4, 4, 2, 2, 2, 4, 4, 2, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 4, 4, 2, 4, 4, 2, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 4, 4, 4, 4, 4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 2, 4, 2, 4, 4, 2, 2, 2, 2, 4, 2, 2, 4, 4, 4, 4, 4, 2, 4, 4, 2, 2, 4, 4, 4, 2, 4, 4, 2, 4, 2, 4, 4, 2, 2, 4, 2, 2, 2, 4, 2, 2, 4, 4, 2, 4, 4, 2, 4, 2, 2, 2, 2, 4, 4, 4, 2, 2, 4, 4, 2, 4, 2, 2, 4, 4, 2, 2, 2, 4, 2, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 2, 4, 4, 4, 4, 4, 2, 4, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 4, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 4, 4, 4, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 4, 4, 2, 2, 2, 4, 4, 2, 2, 4, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 4, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 4, 4, 4, 4, 2, 2, 4, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 2, 4, 2, 4, 4, 4, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 4, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 4, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 4, 4, 4]\n",
-      "   clump_thickness  uniformity_cell_size  uniformity_cell_shape  \\\n",
-      "0                5                     1                      1   \n",
-      "1                5                     4                      4   \n",
-      "2                3                     1                      1   \n",
-      "3                6                     8                      8   \n",
-      "4                4                     1                      1   \n",
-      "\n",
-      "   marginal_adhesion  single_epithelial_cell_size bare_nuclei  \\\n",
-      "0                  1                            2           1   \n",
-      "1                  5                            7          10   \n",
-      "2                  1                            2           2   \n",
-      "3                  1                            3           4   \n",
-      "4                  3                            2           1   \n",
-      "\n",
-      "   bland_chromatin  normal_nucleoli  mitoses  class  class_predictions  \n",
-      "0                3                1        1      2                  2  \n",
-      "1                3                2        1      2                  4  \n",
-      "2                3                1        1      2                  2  \n",
-      "3                3                7        1      2                  4  \n",
-      "4                3                1        1      2                  2  \n",
-      "*** Predictions Value Count ***\n",
-      "2    435\n",
-      "4    248\n",
-      "Name: class_predictions, dtype: int64\n",
-      "Accuracy is 0.9633967789165446\n",
-      "True Positives is 231\n",
-      "True Negatives is 427\n",
-      "False Positives is 17\n",
-      "False Negatives is 8\n",
-      "Sensitivity is 0.9665271966527197\n",
-      "Specificity is 0.9617117117117117\n"
-     ]
-    },
-    {
-     "ename": "SystemExit",
-     "evalue": "1",
-     "output_type": "error",
-     "traceback": [
-      "An exception has occurred, use %tb to see the full traceback.\n",
-      "\u001b[1;31mSystemExit\u001b[0m\u001b[1;31m:\u001b[0m 1\n"
-     ]
-    }
-   ],
-   "source": [
-    "import pandas as pd\n",
-    "import sys\n",
-    "import matplotlib.pyplot as plt\n",
-    "from sklearn.linear_model import LogisticRegression\n",
-    "from sklearn.model_selection import KFold\n",
-    "from sklearn.model_selection import cross_val_score\n",
-    "import numpy as np\n",
-    "import random\n",
-    "import copy\n",
-    "import csv\n",
-    "%matplotlib inline\n",
-    "try:\n",
-    "        # import the data\n",
-    "    data_df = pd.read_csv(\"breast-cancer-wisconsin.data\")\n",
-    "except Exception as e: #异常语句\n",
-    "    print(e)\n",
-    "    sys.exit(1)\n",
-    "print(\"# of rows: {0}\".format(len(data_df)))\n",
-    "print(data_df.head())#第一行默认为列名输出5行\n",
-    "#print(data_df.describe())#各列汇总统计，如中位数\n",
-    "\n",
-    "    # remove sample_code_number column\n",
-    "del data_df['sample_code_number']\n",
-    "predictor_lst = [\"clump_thickness\", \"uniformity_cell_size\", \"uniformity_cell_shape\", \"marginal_adhesion\",\n",
-    "                     \"single_epithelial_cell_size\", \"bland_chromatin\", \"normal_nucleoli\",\"mitoses\"]\n",
-    "# there are 16 rows where the value of 'bare_nuclei' is '?'. Let's remove these rows\n",
-    "print(len(data_df[data_df[\"bare_nuclei\"] == \"?\"]))\n",
-    "data_df = data_df[data_df[\"bare_nuclei\"] != \"?\"]\n",
-    "#设定输入向量的期待输出值\n",
-    "Y=np.array(data_df[\"class\"])\n",
-    "for i in range(0,len(Y)):\n",
-    "    if Y[i] == 2:\n",
-    "        Y[i] = 0\n",
-    "    else :\n",
-    "        Y[i] = 1\n",
-    "X = np.array(data_df[predictor_lst])\n",
-    "#定义坐标,设定5组输入数据，每组为（x0,x1,x2）\n",
-    "V= np.array([[0.1,0.2,0.3,0.4,0.4,0.6,0.2,0.7],\n",
-    "    [0.8,0.9,0.4,0.6,0.1,0.8,0.3,0.5],\n",
-    "    [0.2,0.4,0.1,0.5,0.7,0.9,0.3,0.2],\n",
-    "    [0.8,0.1,0.1,0.2,0.4,0.6,0.3,0.9],\n",
-    "    [0.9,0.9,0.4,0.2,0.5,0.1,0.6,0.7],\n",
-    "    [0.1,0.2,0.1,0.4,0.7,0.6,0.3,0.1],\n",
-    "    [0.3,0.2,0.5,0.3,0.8,0.2,0.9,0.7],\n",
-    "    [0.4,0.6,0.8,0.9,0.2,0.3,0.6,0.9]])\n",
-    "#隐藏层和输出层之间的权值\n",
-    "W=np.array([[0.2,0.1,0.3,0.4,0.6,0.7,0.8,0.9]])  \n",
-    "#sigmoid函数\n",
-    "#设定学习率\n",
-    "lr = 0.5\n",
-    "def sigmoid(x):\n",
-    "    return 1/(1+np.exp(-x))\n",
-    "#对sigmoid函数求导\n",
-    "def sigmoid_daoshu(x):\n",
-    "    return x*(1-x)\n",
-    "def  updateW():\n",
-    "    global  X,Y,V,W,lr,n;\n",
-    "    #权值向量修正记录\n",
-    "    W_C = np.array([0,0,0,0,0,0,0,0])\n",
-    "    V_C = np.array([[0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0],\n",
-    "                   [0,0,0,0,0,0,0,0]])\n",
-    "\n",
-    "    #4个样本分别计算\n",
-    "    for i in range(0,len(X)):\n",
-    "        ##第一层(矩阵8*1)\n",
-    "        layer_1_input = np.dot(V,np.array([X[i]]).T)  ## V*X \n",
-    "        layer_1_output = sigmoid(layer_1_input)  ## a=f(V*X)\n",
-    "\n",
-    "        ##第二层(矩阵1*1)\n",
-    "        layer_2_input = np.dot(W,layer_1_output)  \n",
-    "        layer_2_output = sigmoid(layer_2_input)\n",
-    "        #第二层的误差(矩阵1*1)\n",
-    "        E_2 = Y[i] - layer_2_output.T   \n",
-    "        ## 输出层的detal(矩阵1*1)\n",
-    "        layer_2_detal = E_2*sigmoid_daoshu(layer_2_output)\n",
-    "        ##隐藏层的误差(矩阵8*1)\n",
-    "        E_1 = np.dot(W.T,layer_2_detal)\n",
-    "        \n",
-    "        ## 隐藏层的detal(矩阵8*1)\n",
-    "        layer_1_detal = E_1*sigmoid_daoshu(layer_1_output)\n",
-    "\n",
-    "        ##所有的W向量增加数值\n",
-    "        W_C = W_C + np.dot(layer_2_detal, layer_1_output.T)\n",
-    "        ##所有的V向量增加数值\n",
-    "        V_C = V_C + np.dot(layer_1_detal, np.array([X[i]]))\n",
-    "\n",
-    "    #求出平均数\n",
-    "    W_d = W_C/len(X)\n",
-    "    V_d = V_C/len(X)\n",
-    "    #修改权值\n",
-    "    W = W + lr*W_d\n",
-    "    V = V + lr*V_d\n",
-    "def train():\n",
-    "    output = [0 for i in range(len(X))]; \n",
-    "    #设置迭代次数\n",
-    "    for index in range (20000):\n",
-    "        updateW()\n",
-    "        if index==0 or index==(20000-1):\n",
-    "            #计算出结果\n",
-    "            for i in range(0,len(X)):\n",
-    "                layer_1_input = np.dot(V,np.array([X[i]]).T)\n",
-    "                layer_1_output = sigmoid(layer_1_input)  \n",
-    "                layer_2_input = np.dot(W,layer_1_output)  \n",
-    "                layer_2_output = sigmoid(layer_2_input)\n",
-    "                output[i] = layer_2_output[0][0]\n",
-    "            for j in range(0,len(X)):\n",
-    "                if output[j] < 0.5 :\n",
-    "                    output[j] = 2\n",
-    "                else :\n",
-    "                    output[j] = 4\n",
-    "            print(output)\n",
-    "    data_df[\"class_predictions\"] = output\n",
-    "    print(data_df.head())\n",
-    "    # predictions count\n",
-    "    print(\"*** Predictions Value Count ***\")\n",
-    "    print(data_df[\"class_predictions\"].value_counts())\n",
-    "    matched_df = data_df[data_df[\"class\"] == data_df[\"class_predictions\"]]\n",
-    "    accuracy = float(len(matched_df)) / float(len(data_df))\n",
-    "    print(\"Accuracy is {0}\".format(accuracy))\n",
-    "\n",
-    "    # *** calculate the outcomes of the binary classification\n",
-    "    true_positives = len(data_df[(data_df[\"class\"] == 4) & (data_df[\"class_predictions\"] == 4)])\n",
-    "    true_negatives = len(data_df[(data_df[\"class\"] == 2) & (data_df[\"class_predictions\"] == 2)])\n",
-    "    false_positives = len(data_df[(data_df[\"class\"] == 2) & (data_df[\"class_predictions\"] == 4)])\n",
-    "    false_negatives = len(data_df[(data_df[\"class\"] == 4) & (data_df[\"class_predictions\"] == 2)])\n",
-    "\n",
-    "    print(\"True Positives is {0}\".format(true_positives))\n",
-    "    print(\"True Negatives is {0}\".format(true_negatives))\n",
-    "    print(\"False Positives is {0}\".format(false_positives))\n",
-    "    print(\"False Negatives is {0}\".format(false_negatives))\n",
-    "\n",
-    "    sensitivity = float(true_positives) / float((true_positives + false_negatives))\n",
-    "    print(\"Sensitivity is {0}\".format(sensitivity))\n",
-    "\n",
-    "    specificity = float(true_negatives) / float(true_negatives + false_positives)\n",
-    "    print(\"Specificity is {0}\".format(specificity))\n",
-    "\n",
-    "    #print(\"*** Lets see the accuracr using K FOLD ***\")\n",
-    "    #kf = KFold( 10, shuffle=True, random_state=8)#len(data_df),#https://blog.csdn.net/weixin_40283816/article/details/83242777\n",
-    "\n",
-    "    #accuracies = cross_val_score(data_df, data_df[predictor_lst], data_df[\"class\"], scoring=\"accuracy\", cv=kf)\n",
-    "    #average_accuracy = sum(accuracies) / len(accuracies)\n",
-    "\n",
-    "    #print(\"Accurcies using 10 K-Folds: {0}\".format(accuracies))\n",
-    "    #print(\"Average Accuracies after 10 K-Foldsl: {0})\".format(average_accuracy))\n",
-    "def schatzen(eingeben):\n",
-    "    layer_1_input = np.dot(V,np.array([eingeben]).T)\n",
-    "    layer_1_output = sigmoid(layer_1_input)  \n",
-    "    layer_2_input = np.dot(W,layer_1_output)  \n",
-    "    layer_2_output = sigmoid(layer_2_input)\n",
-    "    output1 = layer_2_output[0][0]\n",
-    "    print(output1)\n",
-    "    if output1 > 0.5 :      \n",
-    "        output1 = 4\n",
-    "    else :\n",
-    "        output1 = 2\n",
-    "    print(output1)\n",
-    "def main():       \n",
-    "    train()\n",
-    "    #eingeben =[5,1,1,1,2,3,1,1]\n",
-    "    #schatzen(eingeben)        \n",
-    "if __name__ == '__main__':\n",
-    "   sys.exit(0 if main() else 1) \n",
-    "            \n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.7.3"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 2
-}
+import pandas as pd
+import sys
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+import numpy as np
+import random
+import copy
+import csv
+try:
+
+        # import the data
+        data_df = pd.read_csv('breast-cancer-wisconsin.data')
+except Exception as e: 
+        print(e)
+        sys.exit(1)
+print("# of rows: {0}".format(len(data_df)))
+    #print(data_df.head())
+
+
+    # remove sample_code_number column
+del data_df['sample_code_number']
+predictor_lst = ["clump_thickness", "uniformity_cell_size", "uniformity_cell_shape", "marginal_adhesion",
+                     "single_epithelial_cell_size", "bland_chromatin", "normal_nucleoli","mitoses"]
+# there are 16 rows where the value of 'bare_nuclei' is '?'. Let's remove these rows
+print(len(data_df[data_df["bare_nuclei"] == "?"]))
+data_df = data_df[data_df["bare_nuclei"] != "?"]
+Y=np.array(data_df["class"])
+for i in range(0,len(Y)):
+    if Y[i] == 2:
+        Y[i] = 0
+    else :
+        Y[i] = 1
+X = np.array(data_df[predictor_lst])
+V= np.array([[0.1,0.2,0.3,0.4,0.4,0.6,0.2,0.7],
+    [0.8,0.9,0.4,0.6,0.1,0.8,0.3,0.5],
+    [0.2,0.4,0.1,0.5,0.7,0.9,0.3,0.2],
+    [0.8,0.1,0.1,0.2,0.4,0.6,0.3,0.9],
+    [0.9,0.9,0.4,0.2,0.5,0.1,0.6,0.7],
+    [0.1,0.2,0.1,0.4,0.7,0.6,0.3,0.1],
+    [0.3,0.2,0.5,0.3,0.8,0.2,0.9,0.7],
+    [0.4,0.6,0.8,0.9,0.2,0.3,0.6,0.9]])
+W=np.array([[0.2,0.1,0.3,0.4,0.6,0.7,0.8,0.9]])  
+lr = 0.5
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+
+def sigmoid_daoshu(x):
+    return x*(1-x)
+
+def  updateW(): 
+    global X,Y,V,W,lr
+    W_C = np.array([0,0,0,0,0,0,0,0])
+    V_C = np.array([[0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0],
+                   [0,0,0,0,0,0,0,0]])
+
+    for i in range(0,len(X)):
+         #8*1
+        layer_1_input = np.dot(V,np.array([X[i]]).T)  ## V*X 
+        layer_1_output = sigmoid(layer_1_input)  ## a=f(V*X)
+
+         #1*1
+        layer_2_input = np.dot(W,layer_1_output)  
+        layer_2_output = sigmoid(layer_2_input)
+        #1*1
+        E_2 = Y[i] - layer_2_output.T   
+        ## 1*1
+        layer_2_detal = E_2*sigmoid_daoshu(layer_2_output)
+        ##8*1
+        E_1 = np.dot(W.T,layer_2_detal)
+        
+        ## 8*1)
+        layer_1_detal = E_1*sigmoid_daoshu(layer_1_output)
+
+ 
+        W_C = W_C + np.dot(layer_2_detal, layer_1_output.T)
+      
+        V_C = V_C + np.dot(layer_1_detal, np.array([X[i]]))
+
+    
+    W_d = W_C/len(X)
+    V_d = V_C/len(X)
+
+    W = W + lr*W_d
+    V = V + lr*V_d
+def train():
+    train_n_mal =1000
+    output = [0 for i in range(len(X))]; 
+    
+    for index in range (train_n_mal):
+        updateW()
+        if index==0 or index==(train_n_mal-1):
+           
+            for i in range(0,len(X)):
+                layer_1_input = np.dot(V,np.array([X[i]]).T)
+                layer_1_output = sigmoid(layer_1_input)  
+                layer_2_input = np.dot(W,layer_1_output)  
+                layer_2_output = sigmoid(layer_2_input)
+                output[i] = layer_2_output[0][0]
+            for j in range(0,len(X)):
+                if output[j] < 0.5 :
+                    output[j] = 2
+                else :
+                    output[j] = 4
+            print(output)
+    df = pd.DataFrame(V)
+    df.to_csv('V.data')
+    df1 = pd.DataFrame(W)
+    df1.to_csv('W.data')
+    data_df["class_predictions"] = output
+    print(data_df.head())
+    # predictions count
+    print("*** Predictions Value Count ***")
+    print(data_df["class_predictions"].value_counts())
+    matched_df = data_df[data_df["class"] == data_df["class_predictions"]]
+    accuracy = float(len(matched_df)) / float(len(data_df))
+    print("Accuracy is {0}".format(accuracy))
+
+    # *** calculate the outcomes of the binary classification
+    true_positives = len(data_df[(data_df["class"] == 4) & (data_df["class_predictions"] == 4)])
+    true_negatives = len(data_df[(data_df["class"] == 2) & (data_df["class_predictions"] == 2)])
+    false_positives = len(data_df[(data_df["class"] == 2) & (data_df["class_predictions"] == 4)])
+    false_negatives = len(data_df[(data_df["class"] == 4) & (data_df["class_predictions"] == 2)])
+
+    print("True Positives is {0}".format(true_positives))
+    print("True Negatives is {0}".format(true_negatives))
+    print("False Positives is {0}".format(false_positives))
+    print("False Negatives is {0}".format(false_negatives))
+
+    sensitivity = float(true_positives) / float((true_positives + false_negatives))
+    print("Sensitivity is {0}".format(sensitivity))
+
+    specificity = float(true_negatives) / float(true_negatives + false_positives)
+    print("Specificity is {0}".format(specificity))
+
+    #print("*** Lets see the accuracr using K FOLD ***")
+    #kf = KFold( 10, shuffle=True, random_state=8)#len(data_df),#https://blog.csdn.net/weixin_40283816/article/details/83242777
+
+    #accuracies = cross_val_score(data_df, data_df[predictor_lst], data_df["class"], scoring="accuracy", cv=kf)
+    #average_accuracy = sum(accuracies) / len(accuracies)
+
+    #print("Accurcies using 10 K-Folds: {0}".format(accuracies))
+    #print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
+def schatzen(eingeben):
+    V =  pd.read_csv("V.data")
+    del V["Unnamed: 0"]
+    W =  pd.read_csv("W.data")
+    del W["Unnamed: 0"]
+    layer_1_input = np.dot(V,np.array([eingeben]).T)
+    layer_1_output = sigmoid(layer_1_input)  
+    layer_2_input = np.dot(W,layer_1_output)  
+    layer_2_output = sigmoid(layer_2_input)
+    output1 = layer_2_output[0][0]
+    if output1 > 0.5 :      
+        output1 = 4
+    else :
+        output1 = 2
+    print(output1)
+def main():       
+    #train()
+    eingeben =[5,1,1,1,2,3,1,1]
+    schatzen(eingeben)        
+if __name__ == '__main__':
+   sys.exit(0 if main() else 1) 
+            

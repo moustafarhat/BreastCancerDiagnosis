@@ -9,6 +9,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 
+
 def calculate_correlations(df,target_column):
     """
     Used to create a series of correlations
