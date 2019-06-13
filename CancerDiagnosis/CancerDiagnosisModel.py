@@ -69,9 +69,9 @@ def draw_scatter(df):
 def main():
     try:
         # import the data
-        data_df = pd.read_csv("breast-cancer-wisconsin.data")
+        data_df = pd.read_csv("CancerDiagnosis/Data/breast-cancer-wisconsin.data")
 
-        draw_scatter(data_df)
+        #draw_scatter(data_df)
 
     except Exception as e:
         print(e)
@@ -102,7 +102,9 @@ def main():
     lr.fit(data_df[predictor_lst], data_df["class"])
     print("*** Accuracy (Score) ***")
     print(lr.score(data_df[predictor_lst], data_df["class"]))
-
+    eingeben =[[5,1,1,1,3,1,1]]
+    ausgeben = lr.predict(eingeben)
+    print(ausgeben)
     # create predictions
     predictions = lr.predict(data_df[predictor_lst])
     print("*** Predictions ***")
@@ -138,14 +140,14 @@ def main():
     specificity = float(true_negatives) / float(true_negatives + false_positives)
     print("Specificity is {0}".format(specificity))
 
-    print("*** Lets see the accuracr using K FOLD ***")
-    kf = KFold(len(data_df), 10, shuffle=True, random_state=8)
+   # print("*** Lets see the accuracr using K FOLD ***")
+   # kf = KFold(len(data_df), 10, shuffle=True, random_state=8)
 
-    accuracies = cross_val_score(lr, data_df[predictor_lst], data_df["class"], scoring="accuracy", cv=kf)
-    average_accuracy = sum(accuracies) / len(accuracies)
+   # accuracies = cross_val_score(lr, data_df[predictor_lst], data_df["class"], scoring="accuracy", cv=kf)
+   # average_accuracy = sum(accuracies) / len(accuracies)
 
-    print("Accurcies using 10 K-Folds: {0}".format(accuracies))
-    print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
+   # print("Accurcies using 10 K-Folds: {0}".format(accuracies))
+   # print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
 
 if __name__ == "__main__":
     sys.exit(0 if main() else 1)
