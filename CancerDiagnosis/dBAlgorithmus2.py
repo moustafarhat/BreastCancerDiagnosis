@@ -11,7 +11,7 @@ import csv
 try:
 
         # import the data
-        data_df = pd.read_csv('breast-cancer-wisconsin.data')
+        data_df = pd.read_csv('CancerDiagnosis/Data/breast-cancer-wisconsin.data')
 except Exception as e: 
         print(e)
         sys.exit(1)
@@ -110,10 +110,10 @@ def train():
                 else :
                     output[j] = 4
             print(output)
-    df = pd.DataFrame(V)
-    df.to_csv('V.data')
-    df1 = pd.DataFrame(W)
-    df1.to_csv('W.data')
+    #df = pd.DataFrame(V)
+    #df.to_csv('V.data')
+    #df1 = pd.DataFrame(W)
+    #df1.to_csv('W.data')
     data_df["class_predictions"] = output
     print(data_df.head())
     # predictions count
@@ -149,9 +149,9 @@ def train():
     #print("Accurcies using 10 K-Folds: {0}".format(accuracies))
     #print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
 def schatzen(eingeben):
-    V =  pd.read_csv("V.data")
+    V =  pd.read_csv("CancerDiagnosis/Data/V.data")
     del V["Unnamed: 0"]
-    W =  pd.read_csv("W.data")
+    W =  pd.read_csv("CancerDiagnosis/Data/W.data")
     del W["Unnamed: 0"]
     layer_1_input = np.dot(V,np.array([eingeben]).T)
     layer_1_output = sigmoid(layer_1_input)  
