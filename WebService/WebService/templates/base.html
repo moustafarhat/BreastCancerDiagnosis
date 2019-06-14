@@ -1,4 +1,4 @@
-<!-- templates/base.html -->
+﻿<!-- templates/base.html -->
 
 <!DOCTYPE html>
 <html>
@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Auth Example</title>
     <link rel="stylesheet" href="../static/content/bulma.min.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -21,10 +24,10 @@
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
                             <a href="{{ url_for('index') }}" class="navbar-item">
-                                Home
+                                Diagnosis Prediction
                             </a>
                             <a href="{{ url_for('profile') }}" class="navbar-item">
-                                Profile
+                                Patients Data Management
                             </a>
                             <a href="{{ url_for('login') }}" class="navbar-item">
                                 Login
@@ -43,8 +46,8 @@
 
         <div class="hero-body">
             <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
     </section>

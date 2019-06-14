@@ -338,3 +338,9 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/WebService/WebService/Modules/__init__.py
+/WebService/WebService/Modules/views.py
+/WebService/WebService/Modules/models.py
+/WebService/WebService/Modules/main.py
+/WebService/WebService/Modules/auth.py
+/WebService/WebService/Modules
