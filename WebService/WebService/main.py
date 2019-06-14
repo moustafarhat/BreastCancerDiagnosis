@@ -1,14 +1,15 @@
 # main.py
 
 from flask import Blueprint
-from . import db
+#from . import db
+from WebService import app
 
 main = Blueprint('main', __name__)
 
-@main.route('/')
+@app.route('/')
 def index():
     return 'Index'
 
-@main.route('/profile')
+@app.route('/profile')
 def profile():
     return 'Profile'

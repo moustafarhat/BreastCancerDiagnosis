@@ -1,14 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
+from WebService import app
 
-app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'datenbank.sqlite')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 class User(db.Model):
+    __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
@@ -23,15 +24,16 @@ class User(db.Model):
         self.password = password
 
 class Patient(db.Model):
-    patient_id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'patients'
+    id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
-    birth_date = db.Column(db.Datetime)
+    birth_date = db.Column(db.Date)
     address = db.Column(db.String(75))
     city = db.Column(db.String(50))
     email = db.Column(db.String(75), unique = True, nullable = False)
     phone = db.Column(db.String(25))
-    informations = db.relationship('Patient_Informations', backref='patient', lazy=True)
+    informations = db.relationship('Patient_Informations', backref='patients', lazy=True)
 
     def __init__(self, first_name, last_name, birth_date, address, city, email, phone):
         self.first_name = first_name
@@ -43,7 +45,9 @@ class Patient(db.Model):
         self.phone = phone
 
 class Patient_Informations(db.Model):
-    patient_id = db.Column(db.Integer, db.ForeignKey('patient.patient_id'))
+    __tablename__ = 'patient_informations'
+    id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'))
     clump_thickness = db.Column(db.Integer)
     uniformity_cell_size = db.Column(db.Integer)
     uniformity_cell_shape = db.Column(db.Integer)
@@ -54,6 +58,7 @@ class Patient_Informations(db.Model):
     normal_nucleoli = db.Column(db.Integer)
     mitoses = db.Column(db.Integer)
     result = db.Column(db.Integer)
+    patient = db.relationship("Patient", backref="patient_informations")
 
     def __init__(self, patient_id, clump_thickness, uniformity_cell_size, uniformity_cell_shape, marginal_adhesion,
      single_epithelial_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses):

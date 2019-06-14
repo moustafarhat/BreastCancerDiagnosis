@@ -24,6 +24,15 @@
                     <input class="input is-large" type="password" name="password" placeholder="Password">
                 </div>
             </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
 
             <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
         </form>
