@@ -33,6 +33,6 @@ def result():
         if int(result)==2:
             prediction='Cancer'
         else:
-            prediction='Income less that 50K'
+            prediction='No Cancer'
    
     return render_template("result.html",prediction=prediction)
