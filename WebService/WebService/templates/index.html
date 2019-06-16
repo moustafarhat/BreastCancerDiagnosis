@@ -3,6 +3,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<<<<<<< HEAD
 
 <div class="container">
 
@@ -36,5 +37,58 @@
 
 <p>&nbsp;</p>
 
+=======
+<h1 class="title">
+    Diagnosis Prediction
+</h1>
+<h2 class="subtitle">
+    Easy authentication and authorization in Flask.
+</h2>
+
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">uniformity_cell_size</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">uniformity_cell_shape</label>
+        <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">marginal_adhesion</label>
+        <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">single_epithelial_cell_size</label>
+        <input type="text" class="form-control" id="exampleFormControlInput4" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">bland_chromatin</label>
+        <input type="text" class="form-control" id="exampleFormControlInput5" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">normal_nucleoli</label>
+        <input type="text" class="form-control" id="exampleFormControlInput6" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">mitoses</label>
+        <input type="text" class="form-control" id="exampleFormControlInput7" placeholder="Data">
+        
+        <label for="exampleFormControlInput1">clump_thickness</label>
+        <input type="text" class="form-control" id="exampleFormControlInput8" placeholder="Data">
+        
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger">Clear</button>
+            
+            </div>
+        
+        <div class="col-auto my-1">
+            <div class="alert alert-success" role="alert">
+                benign (2)
+            </div>
+
+            <div class="alert alert-info" role="alert">
+                malignant (4)
+            </div>
+        </div>
+
+    </div>
+</form>
+>>>>>>> dfe87a882c6e1a43dace40a5193391fa5beb0b40
 
 {% endblock %}

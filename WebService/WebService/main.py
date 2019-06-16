@@ -1,8 +1,13 @@
 # main.py
 
+<<<<<<< HEAD
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_required
 from .models import User , Patient, db
+=======
+from flask import Blueprint, render_template
+#from . import db
+>>>>>>> dfe87a882c6e1a43dace40a5193391fa5beb0b40
 from WebService import app
 from flask_wtf import Form
 from wtforms import DateField
@@ -13,6 +18,7 @@ class DateForm(Form):
 
 @app.route('/')
 def index():
+<<<<<<< HEAD
     return redirect(url_for('get_patients'))
 
 @app.route('/patients')
@@ -54,3 +60,33 @@ def addpatient_post():
     db.session.commit()
 
     return redirect(url_for('get_patients'))
+=======
+    return render_template('index.html')
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+#prediction function
+def ValuePredictor(to_predict_list):
+    to_predict = np.array(to_predict_list).reshape(1,12)
+    loaded_model = pickle.load(open("SerializedModel/model.pkl","rb"))
+    result = loaded_model.predict(to_predict)
+    return result[0]
+
+#Get result from serialized Model 
+@app.route('/result',methods = ['POST'])
+def result():
+    if request.method == 'POST':
+        to_predict_list = request.form.to_dict()
+        to_predict_list=list(to_predict_list.values())
+        to_predict_list = list(map(int, to_predict_list))
+        result = ValuePredictor(to_predict_list)
+        
+        if int(result)==2:
+            prediction='Cancer'
+        else:
+            prediction='No Cancer'
+   
+    return render_template("result.html",prediction=prediction)
+>>>>>>> dfe87a882c6e1a43dace40a5193391fa5beb0b40
