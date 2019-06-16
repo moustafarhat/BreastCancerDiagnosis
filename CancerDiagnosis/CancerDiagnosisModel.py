@@ -120,14 +120,7 @@ def main():
     # create predictions
     predictions = lr.predict(data_df[predictor_lst])
     print("*** Predictions ***")
-
-    # eingeben = [5, 1, 1, 1, 3, 1, 1]
-    # ausgeben = lr.predict(array.reshape(eingeben))
-    # print("Ausgeben" + ausgeben)
-
     data_df["class_predictions"] = predictions
-    print(data_df.head())
-
     # predictions count
     print("*** Predictions Value Count ***")
     print(data_df["class_predictions"].value_counts())
