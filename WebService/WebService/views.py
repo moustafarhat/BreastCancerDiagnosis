@@ -26,12 +26,12 @@ def contact():
         message='Your contact page.'
     )
 
-@app.route('/about')
+@app.route('/addpatient')
 def about():
     """Renders the about page."""
     return render_template(
-        'about.html',
-        title='About',
+        'addpatient.html',
+        title='Add Patient',
         year=datetime.now().year,
-        message='Your application description page.'
+        message='Add Patient Data.'
     )
