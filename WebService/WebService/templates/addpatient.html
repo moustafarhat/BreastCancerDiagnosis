@@ -1,11 +1,57 @@
-<!-- templates/AddPatient.html -->
+<!-- templates/signup.html -->
 
 {% extends "base.html" %}
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    <h3 class="title">Add patient data</h3>
-      
-   
+    <h3 class="title">New Patient</h3>
+    <div class="box">
+        <form method="POST" action="/addpatient">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="firstname" placeholder="First Name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="lastname" placeholder="Last Name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    {{ form.dt(class="dtpick input is-large", placeholder="Birthdate") }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="address" placeholder="Address" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="city" placeholder="City" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="phone" placeholder="Phone number" autofocus="">
+                </div>
+            </div>
+            {% if error %}
+            <div class="field">
+                <div class="control">
+                    <p class="error">{{ error }}</p>
+                </div>
+            </div>
+            {% endif %}
+            <button class="button is-block is-info is-large is-fullwidth">Add</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

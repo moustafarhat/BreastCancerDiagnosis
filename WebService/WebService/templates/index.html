@@ -3,6 +3,41 @@
 {% extends "base.html" %}
 
 {% block content %}
+<<<<<<< HEAD
+
+<div class="container">
+
+<h2 >Patients:</h2>
+
+<p>&nbsp;</p>
+
+<div>
+    <table style="width:100%" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th><a>New</a></th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for patient in allpatients %}
+            <tr id={{ patient.id }}>
+                <td>{{patient.first_name}}</td>
+                <td>{{patient.last_name}}</td>
+                <td>
+                    <a>Edit</a>
+                    <a>Delete</a>
+                </td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+</div>
+
+<p>&nbsp;</p>
+
+=======
 <h1 class="title">
     Diagnosis Prediction
 </h1>
@@ -54,5 +89,6 @@
 
     </div>
 </form>
+>>>>>>> dfe87a882c6e1a43dace40a5193391fa5beb0b40
 
 {% endblock %}

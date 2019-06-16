@@ -3,7 +3,7 @@ from flask_marshmallow import Marshmallow
 import os
 from WebService import app
 
-basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'datenbank.sqlite')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
