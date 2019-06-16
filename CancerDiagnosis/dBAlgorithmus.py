@@ -95,7 +95,11 @@ def main():
    del data_patient_informations['result']
    data_patient_informations =np.array(data_patient_informations)
    model = load_model('save_model/my_net.model')
-   ergibnis  = model.predict(data_patient_informations)
+   ergibnisse  = model.predict(data_patient_informations)
+   if ergibnisse[len(ergibnisse)-1] < 3:
+       ergibnis = 2
+   else :
+       ergibnis = 4
    print(ergibnis)
 if __name__ == '__main__':
    sys.exit(0 if main() else 1) 
