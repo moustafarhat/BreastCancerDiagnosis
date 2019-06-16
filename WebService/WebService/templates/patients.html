@@ -8,21 +8,35 @@
     <p>&nbsp;</p>
     
     <div>
-        <table style="width:100%" class="table table-striped">
+        <table style="width:100%" class="table table-striped pa-table">
             <thead>
                 <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th><a>New</a></th>
+                    <th scope="col" class="text-center">First Name</th>
+                    <th scope="col" class="text-center">Last Name</th>
+                    <th scope="col" class="text-center">Birth date</th>
+                    <th scope="col" class="text-center">address</th>
+                    <th scope="col" class="text-center">City</th>
+                    <th scope="col" class="text-center">Email</th>
+                    <th scope="col" class="text-center">Phone</th>
+                    <th scope="col" class="text-center">Information</th>
+                    <th scope="col" class="text-center"><a>New</a></th>
                 </tr>
             </thead>
             <tbody>
               {% for patient in allpatients %}
                 <tr id={{ patient.id }}>
-                    <td>{{patient.first_name}}</td>
-                    <td>{{patient.last_name}}</td>
-                    <td>
-                        <a>Edit</a>
+                    <td class="text-center">{{patient.first_name}}</td>
+                    <td class="text-center">{{patient.last_name}}</td>
+                    <td class="text-center">{{patient.birth_date}}</td>
+                    <td class="text-center">{{patient.address}}</td>
+                    <td class="text-center">{{patient.city}}</td>
+                    <td class="text-center">{{patient.email}}</td>
+                    <td class="text-center">{{patient.phone}}</td>
+                    <td class="text-center">
+                        <a>Results</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ url_for('addpatient_post', id=patient.id) }}">Edit</a>
                         <a>Delete</a>
                     </td> 
                 </tr>

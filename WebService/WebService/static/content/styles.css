@@ -1,3 +1,6 @@
 .error{
     color: red;
 }
+.pa-table .text-center{
+    text-align: center !important;
+}

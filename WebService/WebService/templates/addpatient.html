@@ -9,12 +9,12 @@
         <form method="POST" action="/addpatient">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="firstname" placeholder="First Name" autofocus="">
+                    {{ form.firstname(class="input is-large", placeholder="First Name") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="lastname" placeholder="Last Name" autofocus="">
+                        {{ form.lastname(class="input is-large", placeholder="Last Name") }}
                 </div>
             </div>
             <div class="field">
@@ -24,23 +24,22 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="address" placeholder="Address" autofocus="">
+                        {{ form.address(class="input is-large", placeholder="Address") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="city" placeholder="City" autofocus="">
+                        {{ form.city(class="input is-large", placeholder="City") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+                        {{ form.email(class="input is-large", placeholder="Email") }}
                 </div>
             </div>
-
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="phone" placeholder="Phone number" autofocus="">
+                        {{ form.phone(class="input is-large", placeholder="Phone number") }}
                 </div>
             </div>
             {% if error %}
