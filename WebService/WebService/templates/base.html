@@ -8,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Auth Example</title>
+    <link rel="stylesheet" href="../static/bootstrap-datepicker/css/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="../static/content/bulma.min.css" />
-    <link rel="stylesheet" href="../static/content/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/content/bootstrap.css" />
     <link rel="stylesheet" href="../static/content/styles.css" />
-    <link rel="stylesheet" href="../static/scripts/jquery-ui-themes-1.11.4/themes/smoothness/jquery-ui.min.css" />
     <script src="../static/scripts/jquery-1.10.2.js"></script>
-    <script src="../static/content/jquery-ui-1.11.4/jquery-ui.js"></script>
+    <script src="../static/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script>
 	$(function() {
-		$( ".dtpick" ).datepicker({ dateFormat: 'd-m-yy' });
+		$( ".dtpick" ).datepicker({format: 'd-m-yyyy'});
 	});
 	</script>
 </head>
