@@ -55,6 +55,11 @@ def addpatient_post():
 def profile():
     return render_template('profile.html')
 
+@app.route('/addpatient')
+def addpatient():
+    return render_template('addpatient.html')
+
+
 #prediction function
 def ValuePredictor(to_predict_list):
     to_predict = np.array(to_predict_list).reshape(1,12)
