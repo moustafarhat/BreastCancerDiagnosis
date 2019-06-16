@@ -4,6 +4,50 @@
 
 {% block content %}
 <h1 class="title">
-  Patients Data Management
+    Patients Data Management
 </h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Birth date</th>
+            <th scope="col">address</th>
+            <th scope="col">City</th>
+            <th scope="col">Email</th>
+            <th scope="col">phone</th>
+            <th scope="col">Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>12-12-1990</td>
+            <td>Musterdaten</td>
+            <td>Marburg</td>
+            <td>mustermann@mustermail.com</td>
+            <td>02155656566</td>
+            <td>No Comment</td>
+
+        </tr>
+    <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+    </tr>
+    </tbody>
+</table>
+
+
 {% endblock %}
