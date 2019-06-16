@@ -1,13 +1,8 @@
 # main.py
 
-<<<<<<< HEAD
-from flask import render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required
 from .models import User , Patient, db
-=======
-from flask import Blueprint, render_template
-#from . import db
->>>>>>> dfe87a882c6e1a43dace40a5193391fa5beb0b40
 from WebService import app
 from flask_wtf import Form
 from wtforms import DateField
@@ -18,17 +13,12 @@ class DateForm(Form):
 
 @app.route('/')
 def index():
-<<<<<<< HEAD
-    return redirect(url_for('get_patients'))
+    return render_template('index.html')
 
 @app.route('/patients')
 def get_patients():
     all_patients = Patient.query.all()
-    return render_template('index.html', allpatients = all_patients)
-
-@app.route('/profile')
-def profile():
-    return 'Profile'
+    return render_template('patients.html', allpatients = all_patients)
 
 @app.route('/addpatient')
 def addpatient():
@@ -60,8 +50,6 @@ def addpatient_post():
     db.session.commit()
 
     return redirect(url_for('get_patients'))
-=======
-    return render_template('index.html')
 
 @app.route('/profile')
 def profile():
@@ -89,4 +77,3 @@ def result():
             prediction='No Cancer'
    
     return render_template("result.html",prediction=prediction)
->>>>>>> dfe87a882c6e1a43dace40a5193391fa5beb0b40
