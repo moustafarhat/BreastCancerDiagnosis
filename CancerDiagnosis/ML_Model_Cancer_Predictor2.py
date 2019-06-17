@@ -1,21 +1,27 @@
-import pandas as pd
-import sys
+#################
+#### imports ####
+#################
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
-import numpy as np
-import csv
-import sqlite3
-import time
 from sklearn.externals import joblib
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation
 from keras.models import load_model
+import pandas as pd
+import sys
+import numpy as np
+import csv
+import sqlite3
+import time
+
+##########################
+#### Model Training ######
+##########################
 def train():
     try:
-
-        # import the data
+        # import Data
         data_df = pd.read_csv('CancerDiagnosis/Data/breast-cancer-wisconsin.data')
     except Exception as e: 
         print(e)

@@ -1,7 +1,6 @@
-"""
-this script is used to analyze breast cancer data from from the University of Wisconsin Hospitals.
-This data will also be user to create predictions against the class column
-"""
+#################
+#### imports ####
+#################
 import pickle
 import sys
 import matplotlib.pyplot as plt
@@ -10,7 +9,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 
-
+##########################
+#### helper functions ####
+##########################
 def calculate_correlations(df, target_column):
     """
     Used to create a series of correlations
@@ -22,12 +23,10 @@ def calculate_correlations(df, target_column):
     corr_series = corr_series[target_column]
     return corr_series
 
-
-def predic(Values):
-    # TODO make a prediction here
-    pass
-
-
+#Data visualization
+##########################
+#### helper functions ####
+##########################
 def draw_scatter(df):
     fig = plt.figure(figsize=(10, 12))
 
@@ -71,7 +70,10 @@ def draw_scatter(df):
     plt.show()
 
 
-def main():
+##########################
+#### Model Training ######
+##########################
+def train():
     try:
         # import the data
         data_df = pd.read_csv("Data/breast-cancer-wisconsin.data")
@@ -160,8 +162,8 @@ def main():
     print("Accurcies using 10 K-Folds: {0}".format(accuracies))
     print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
 
-
-
+    def main():
+       train()
 
 if __name__ == "__main__":
     sys.exit(0 if main() else 1)

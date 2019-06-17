@@ -1,36 +1,46 @@
+
 #################
 #### imports ####
 #################
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import User
+from flask_login import LoginManager
+from ..models import User
 from WebService import app
-from .models import db
+from ..models import db
+from .forms import LoginForm
+
+################
+#### config ####
+################
+
+users_blueprint = Blueprint('users', __name__)
+
+
+################
+#### routes ####
+################
 
 
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=["GET", "POST"])
 def login_post():
+    if request.method == 'GET':
+        return render_template('login.html')
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
 
-    # check if user actually exists
-    # take the user supplied password, hash it, and compare it to the hashed password in database
-    if not user or not check_password_hash(user.password, password): 
-        flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
-
-    # if the above check passes, then we know the user has the right credentials
-    login_user(user, remember=remember)
-    return redirect(url_for('main.profile'))
+    if user is None:
+        flash('email or Password is invalid' , 'error')
+        return redirect(url_for('login_post'))
+    login_user(user)
+    flash('Logged in successfully')
+    return redirect(url_for('index'))
 
 @app.route('/signup')
 def signup():
@@ -62,4 +72,6 @@ def signup_post():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    flash ('You have been logged out')
+    return redirect(url_for('index'))
+

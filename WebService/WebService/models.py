@@ -1,14 +1,41 @@
+#################
+#### imports ####
+#################
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_login import UserMixin , LoginManager
 import os
 from WebService import app
+from .Config import *
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'datenbank.sqlite')
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
+#basedir = os.path.abspath(os.path.dirname(__file__))
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'datenbank.sqlite')
+#db = SQLAlchemy(app)
+#ma = Marshmallow(app)
+@login.user_loader
+def load_user(user_id):
+    try:
+        return User.query.get(user_id)
+    except:
+        return None
 
-class User(db.Model):
+@property
+def is_authenticated(self):
+    return True
+@property
+def is_active(self):
+    return True
+@property
+def is_anonymous(self):
+    return False
+@property 
+def get_id(self):
+    return str(self.user_id)
+@property 
+def __repr__(self):
+    return '<User %r>' % (self.username)
+
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50))
@@ -22,6 +49,10 @@ class User(db.Model):
         self.last_name = last_name
         self.email = email
         self.password = password
+
+    @property
+    def id(self):
+        return self.sid
 
 class Patient(db.Model):
     __tablename__ = 'patients'
