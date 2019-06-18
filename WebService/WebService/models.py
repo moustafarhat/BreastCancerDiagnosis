@@ -8,10 +8,6 @@ import os
 from WebService import app
 from .Config import *
 
-#basedir = os.path.abspath(os.path.dirname(__file__))
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'datenbank.sqlite')
-#db = SQLAlchemy(app)
-#ma = Marshmallow(app)
 @login.user_loader
 def load_user(user_id):
     try:
@@ -19,21 +15,6 @@ def load_user(user_id):
     except:
         return None
 
-@property
-def is_authenticated(self):
-    return True
-@property
-def is_active(self):
-    return True
-@property
-def is_anonymous(self):
-    return False
-@property 
-def get_id(self):
-    return str(self.user_id)
-@property 
-def __repr__(self):
-    return '<User %r>' % (self.username)
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -51,8 +32,28 @@ class User(db.Model, UserMixin):
         self.password = password
 
     @property
-    def id(self):
-        return self.sid
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+ 
+    @property
+    def is_active(self):
+        """Always True, as all users are active."""
+        return True
+ 
+    @property
+    def is_anonymous(self):
+        """Always False, as anonymous users aren't supported."""
+        return False
+ 
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        """Requires use of Python 3"""
+        return str(self.user_id)
+ 
+    def __repr__(self):
+        return '<User {0}>'.format(self.name)
+
 
 class Patient(db.Model):
     __tablename__ = 'patients'

@@ -32,15 +32,21 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
+    form = LoginForm(request.form)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            user = User.query.filter_by(email=email).first()
+            if user is not None and user.is_correct_password(password.data):
+                user.authenticated = True
+                db.session.add(user)
+                db.session.commit()
+                login_user(user)
+                flash('Thanks for logging in, {}'.format(current_user.email))
+                return redirect(url_for('index'))
+            else:
+                flash('ERROR! Incorrect login credentials.', 'error')
+    return render_template('login.html', form=form)
 
-    user = User.query.filter_by(email=email).first()
-
-    if user is None:
-        flash('email or Password is invalid' , 'error')
-        return redirect(url_for('login_post'))
-    login_user(user)
-    flash('Logged in successfully')
-    return redirect(url_for('index'))
 
 @app.route('/signup')
 def signup():
@@ -71,7 +77,11 @@ def signup_post():
 @app.route('/logout')
 @login_required
 def logout():
+    user = current_user
+    user.authenticated = False
+    db.session.add(user)
+    db.session.commit()
     logout_user()
-    flash ('You have been logged out')
-    return redirect(url_for('index'))
+    flash('Goodbye!', 'info')
+    return redirect(url_for('login'))
 
