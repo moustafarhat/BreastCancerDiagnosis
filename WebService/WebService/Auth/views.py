@@ -28,23 +28,20 @@ users_blueprint = Blueprint('users', __name__)
 @app.route('/login', methods=["GET", "POST"])
 def login_post():
     if request.method == 'GET':
-        return render_template('login.html')
+        form = LoginForm()
+        return render_template('login.html', form=form)
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
     form = LoginForm(request.form)
     if request.method == 'POST':
-        if form.validate_on_submit():
-            user = User.query.filter_by(email=email).first()
-            if user is not None and user.is_correct_password(password.data):
-                user.authenticated = True
-                db.session.add(user)
-                db.session.commit()
-                login_user(user)
-                flash('Thanks for logging in, {}'.format(current_user.email))
-                return redirect(url_for('index'))
-            else:
-                flash('ERROR! Incorrect login credentials.', 'error')
+        user = User.query.filter_by(email=email).first()
+        if user is not None and check_password_hash(user.password, password):
+            login_user(user)
+            flash('Thanks for logging in, {}'.format(user.email))
+            return redirect(url_for('index'))
+        else:
+            flash('ERROR! Incorrect login credentials.')
     return render_template('login.html', form=form)
 
 
@@ -72,16 +69,12 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect(url_for('login'))
+    return redirect(url_for('login_post'))
 
 @app.route('/logout')
 @login_required
 def logout():
-    user = current_user
-    user.authenticated = False
-    db.session.add(user)
-    db.session.commit()
     logout_user()
     flash('Goodbye!', 'info')
-    return redirect(url_for('login'))
+    return redirect(url_for('login_post'))
 

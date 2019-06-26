@@ -8,12 +8,12 @@ import os
 from WebService import app
 from .Config import *
 
-@login.user_loader
-def load_user(user_id):
-    try:
-        return User.query.get(user_id)
-    except:
-        return None
+#@login.user_loader
+#def load_user(user_id):
+#    try:
+#        return User.query.get(user_id)
+#    except:
+#        return None
 
 
 class User(db.Model, UserMixin):
@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
     @property
     def is_authenticated(self):
         """Return True if the user is authenticated."""
-        return self.authenticated
+        return True
  
     @property
     def is_active(self):

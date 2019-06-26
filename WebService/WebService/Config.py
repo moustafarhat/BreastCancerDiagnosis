@@ -12,12 +12,12 @@ from flask_login import LoginManager
 #### config ####
 ################
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'DB/DataBase.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'DB\DataBase.sqlite')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-login = LoginManager(app)
+#login = LoginManager(app)
 
 
 

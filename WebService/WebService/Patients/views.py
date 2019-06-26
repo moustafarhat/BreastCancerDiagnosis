@@ -26,11 +26,13 @@ def index():
     return render_template('index.html')
 
 @app.route('/patients')
+@login_required
 def get_patients():
     all_patients = Patient.query.all()
     return render_template('patients.html', allpatients = all_patients)
 
 @app.route('/profile')
+@login_required
 def profile():
     return render_template('profile.html')
 

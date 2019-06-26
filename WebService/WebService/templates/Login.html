@@ -9,13 +9,13 @@
         <form method="POST" action="/login">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+                    {{ form.email(class="input is-large", placeholder="Your Email", type="email", autofocus="") }}
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                    {{ form.password(class="input is-large", placeholder="Your Password", type="password", autofocus="") }}
                 </div>
             </div>
             <div class="field">
@@ -24,7 +24,7 @@
                     Remember me
                 </label>
             </div>
-            
+            <div>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul>
@@ -34,8 +34,8 @@
             </ul>
             {% endif %}
             {% endwith %}
-            
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+            </div>
+            <button name ="submit" class="button is-block is-info is-large is-fullwidth">Login</button>
         </form>
     </div>
 </div>
