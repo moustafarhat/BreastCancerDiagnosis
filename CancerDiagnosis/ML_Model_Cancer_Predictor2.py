@@ -33,14 +33,14 @@ def train():
     # remove sample_code_number column
     del data_df['sample_code_number']
     predictor_lst = ["clump_thickness", "uniformity_cell_size", "uniformity_cell_shape", "marginal_adhesion",
-                     "single_epithelial_cell_size", "bland_chromatin", "normal_nucleoli","mitoses"]
+                     "single_epithelial_cell_size", "bland_chromatin", "normal_nucleoli"]
 # there are 16 rows where the value of 'bare_nuclei' is '?'. Let's remove these rows
 #print(len(data_df[data_df["bare_nuclei"] == "?"]))
     data_df = data_df[data_df["bare_nuclei"] != "?"]
     #y_train = np.array(data_df["class"])    
     #x_train = np.array(data_df[predictor_lst])
     #model = Sequential() 
-    #model.add(Dense(input_dim = 8,output_dim = 12))
+    #model.add(Dense(input_dim = 7,output_dim = 12))
     #model.add(Activation('relu')) 
     #model.add(Dense(input_dim = 12,output_dim = 1))
     #model.compile(loss='mean_squared_error', optimizer='adam') 
@@ -91,18 +91,21 @@ def train():
     print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
     '''
 def main():
-   train()
+   #train()
    
-   with sqlite3.connect('WebService/WebService/datenbank.sqlite') as con:
+   with sqlite3.connect('WebService/WebService/DB/DataBase.sqlite') as con:
         data_patient_informations = pd.read_sql_query("SELECT * FROM patient_informations", con=con)
    del data_patient_informations['id']
    del data_patient_informations['patient_id']
    del data_patient_informations['bare_nuclei']
    del data_patient_informations['result']
-   data_patient_informations =np.array(data_patient_informations)
-   model = load_model('save_model/my_net.model')
+   del data_patient_informations['mitoses']
+   data_patient_informations = np.array(data_patient_informations)
+   data_patient_informations = data_patient_informations[len(data_patient_informations)-1]
+   data_patient_informations = np.reshape(data_patient_informations, (1,7))
+   model = load_model('CancerDiagnosis/model/ML_Model_Cancer_Predictor2.model')
    ergibnisse  = model.predict(data_patient_informations)
-   if ergibnisse[len(ergibnisse)-1] < 3:
+   if ergibnisse < 3:
        ergibnis = 2
    else :
        ergibnis = 4
