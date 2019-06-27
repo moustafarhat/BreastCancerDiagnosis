@@ -2,7 +2,7 @@
 #### imports ####
 #################
 
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 
 import os
@@ -17,7 +17,8 @@ app.secret_key = os.urandom(24)
 ####################
 #### extensions ####
 ####################
-login = LoginManager(app)
+login = LoginManager()
+login.init_app(app)
 
 ####################
 #### flask-login ####
@@ -29,6 +30,10 @@ from  .models import User
 @login.user_loader
 def load_user(user_id):
      return User.query.filter(User.user_id == int(user_id)).first()
+
+@login.unauthorized_handler
+def unauthorized_handler():
+    return redirect(url_for('login_post'))
 
 
 ####################
