@@ -22,6 +22,7 @@ Patients_blueprint = Blueprint('Patients', __name__)
 #### routes ####
 ################
 @app.route('/')
+@login_required
 def index():
     return render_template('index.html')
 
@@ -39,6 +40,7 @@ def profile():
 
 
 @app.route('/addpatient', methods=["GET", "POST"])
+@login_required
 def addpatient_post():
     if request.method == "POST":
         form = DateForm(request.form)
