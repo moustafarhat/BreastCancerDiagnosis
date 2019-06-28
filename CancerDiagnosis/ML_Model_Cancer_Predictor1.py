@@ -76,7 +76,7 @@ def draw_scatter(df):
 def train():
     try:
         # import the data
-        data_df = pd.read_csv("Data/breast-cancer-wisconsin.data")
+        data_df = pd.read_csv("CancerDiagnosis/Data/breast-cancer-wisconsin.data")
 
         draw_scatter(data_df)
 
@@ -96,7 +96,7 @@ def train():
 
     # scatter plot for each of the attributes against class
     print("scatter plot for each of the attributes against class")
-    draw_scatter(data_df)
+    #draw_scatter(data_df)
 
     # there are 16 rows where the value of 'bare_nuclei' is '?'. Let's remove these rows
     print(len(data_df[data_df["bare_nuclei"] == "?"]))
@@ -117,30 +117,38 @@ def train():
     # creating and training a model
     # serializing our model to a file called model.pkl
 
-    pickle.dump(lr, open('./SerializedModel/model.pkl', "wb"))
+    pickle.dump(lr, open('WebService/WebService/SerializedModels/ML_Model_Cancer_Predictor1.pkl', "wb"))
+    try:
+        # import the data
+        data_test = pd.read_csv("CancerDiagnosis/Data/test.data")
 
+        draw_scatter(data_test)
+
+    except Exception as e:
+        print(e)
+        sys.exit(1)
     # create predictions
-    predictions = lr.predict(data_df[predictor_lst])
+    predictions = lr.predict(data_test[predictor_lst])
     print("*** Predictions ***")
-    data_df["class_predictions"] = predictions
+    data_test["class_predictions"] = predictions
     # predictions count
     print("*** Predictions Value Count ***")
-    print(data_df["class_predictions"].value_counts())
+    print(data_test["class_predictions"].value_counts())
 
     # *** calculate accuracy ***
 
     # get the rows where the actual and the predicted labels match
-    matched_df = data_df[data_df["class"] == data_df["class_predictions"]]
+    matched_test = data_test[data_test["class"] == data_test["class_predictions"]]
 
-    accuracy = float(len(matched_df)) / float(len(data_df))
+    accuracy = float(len(matched_test)) / float(len(data_test))
 
     print("Accuracy is {0}".format(accuracy))
 
     # *** calculate the outcomes of the binary classification
-    true_positives = len(data_df[(data_df["class"] == 4) & (data_df["class_predictions"] == 4)])
-    true_negatives = len(data_df[(data_df["class"] == 2) & (data_df["class_predictions"] == 2)])
-    false_positives = len(data_df[(data_df["class"] == 2) & (data_df["class_predictions"] == 4)])
-    false_negatives = len(data_df[(data_df["class"] == 4) & (data_df["class_predictions"] == 2)])
+    true_positives = len(data_test[(data_test["class"] == 4) & (data_test["class_predictions"] == 4)])
+    true_negatives = len(data_test[(data_test["class"] == 2) & (data_test["class_predictions"] == 2)])
+    false_positives = len(data_test[(data_test["class"] == 2) & (data_test["class_predictions"] == 4)])
+    false_negatives = len(data_test[(data_test["class"] == 4) & (data_test["class_predictions"] == 2)])
 
     print("True Positives is {0}".format(true_positives))
     print("True Negatives is {0}".format(true_negatives))
@@ -161,9 +169,8 @@ def train():
 
     print("Accurcies using 10 K-Folds: {0}".format(accuracies))
     print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
-
-    def main():
-       train()
+def main():
+    train()
 
 if __name__ == "__main__":
     sys.exit(0 if main() else 1)

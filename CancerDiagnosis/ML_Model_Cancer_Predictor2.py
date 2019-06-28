@@ -48,27 +48,34 @@ def train():
 
     #model.save('my_net.model')
 
-    model = load_model('save_model/my_net.model')
-    vermutung = model.predict(data_df[predictor_lst])
+    model = load_model('WebService/WebService/SerializedModels/ML_Model_Cancer_Predictor2.model')
+    try:
+        data_test = pd.read_csv('CancerDiagnosis/Data/test.data')
+    except Exception as e: 
+        print(e)
+        sys.exit(1)
+    del data_test['sample_code_number']
+    data_test = data_test[data_test["bare_nuclei"] != "?"]
+    vermutung = model.predict(data_test[predictor_lst])
+
     for i in range(len(vermutung )):
         if vermutung[i] < 3 :
             vermutung[i]= 2
-        else :
+        else:
             vermutung[i] = 4
-    data_df["class_predictions"] = vermutung
- 
+    data_test["class_predictions"] = vermutung
+    #print(data_df.head())
     # predictions count
-    print("*** Predictions Value Count ***")
-    print(data_df["class_predictions"].value_counts())
-    matched_df = data_df[data_df["class"] == data_df["class_predictions"]]
-    accuracy = float(len(matched_df)) / float(len(data_df))
+    print(data_test["class_predictions"].value_counts())
+    matched_test = data_test[data_test["class"] == data_test["class_predictions"]]
+    accuracy = float(len(matched_test)) / float(len(data_test))
     print("Accuracy is {0}".format(accuracy))
 
     # *** calculate the outcomes of the binary classification
-    true_positives = len(data_df[(data_df["class"] == 4) & (data_df["class_predictions"] == 4)])
-    true_negatives = len(data_df[(data_df["class"] == 2) & (data_df["class_predictions"] == 2)])
-    false_positives = len(data_df[(data_df["class"] == 2) & (data_df["class_predictions"] == 4)])
-    false_negatives = len(data_df[(data_df["class"] == 4) & (data_df["class_predictions"] == 2)])
+    true_positives = len(data_test[(data_test["class"] == 4) & (data_test["class_predictions"] == 4)])
+    true_negatives = len(data_test[(data_test["class"] == 2) & (data_test["class_predictions"] == 2)])
+    false_positives = len(data_test[(data_test["class"] == 2) & (data_test["class_predictions"] == 4)])
+    false_negatives = len(data_test[(data_test["class"] == 4) & (data_test["class_predictions"] == 2)])
 
     print("True Positives is {0}".format(true_positives))
     print("True Negatives is {0}".format(true_negatives))
@@ -91,7 +98,7 @@ def train():
     print("Average Accuracies after 10 K-Foldsl: {0})".format(average_accuracy))
     '''
 def main():
-   #train()
+   train()
    
    with sqlite3.connect('WebService/WebService/DB/DataBase.sqlite') as con:
         data_patient_informations = pd.read_sql_query("SELECT * FROM patient_informations", con=con)
@@ -103,7 +110,7 @@ def main():
    data_patient_informations = np.array(data_patient_informations)
    data_patient_informations = data_patient_informations[len(data_patient_informations)-1]
    data_patient_informations = np.reshape(data_patient_informations, (1,7))
-   model = load_model('CancerDiagnosis/model/ML_Model_Cancer_Predictor2.model')
+   model = load_model('WebService/WebService/SerializedModels//ML_Model_Cancer_Predictor2.model')
    ergibnisse  = model.predict(data_patient_informations)
    if ergibnisse < 3:
        ergibnis = 2
