@@ -30,27 +30,50 @@
 
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
+                            {% if current_user.is_authenticated %}
                             <a href="{{ url_for('get_patients') }}" class="navbar-item">
                                 Home
                             </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
                             <a href="{{ url_for('index') }}" class="navbar-item">
                                 Diagnosis Prediction
                             </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            {% if current_user.foundation.role < 2 %}
                             <a href="{{ url_for('addpatient_post') }}" class="navbar-item">
                                 Add new Patient data
                             </a>
+                            {% endif %}
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
                             <a href="{{ url_for('profile') }}" class="navbar-item">
                                 Patients Data Management
                             </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            {% if current_user.foundation.role == 0 %}
+                            <a href="{{ url_for('get_groups') }}" class="navbar-item">
+                                    Groups
+                            </a>
+                            {% endif %}
+                            {% endif %}
                             <a href="{{ url_for('login_post') }}" class="navbar-item">
                                 Login
                             </a>
+                            {% if current_user.is_authenticated %}
+                            {% if current_user.foundation.role == 0 %}
                             <a href="{{ url_for('signup') }}" class="navbar-item">
-                                Sign Up
+                                New member
                             </a>
+                            {% endif %}
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
                             <a href="{{ url_for('logout') }}" class="navbar-item">
                                 Logout
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

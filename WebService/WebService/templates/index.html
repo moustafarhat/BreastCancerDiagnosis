@@ -10,62 +10,66 @@
     Some other description here.
 </h2>
 
-<form>
-    <div class="column is-4 is-offset-4">
-       <div class="box">
-           <div class="form-group" method="POST" action="/index">
-               <label for="exampleFormControlInput1">uniformity_cell_size</label>
-               <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Data">
+<div class="column is-4 is-offset-4">
+    <div class="box">
+        <div class="form-group" method="POST" action="/index">
+            <label for="exampleFormControlInput1">uniformity_cell_size</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Data">
 
-               <label for="exampleFormControlInput1">uniformity_cell_shape</label>
-               <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Data">
+            <label for="exampleFormControlInput1">uniformity_cell_shape</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Data">
 
-               <label for="exampleFormControlInput1">marginal_adhesion</label>
-               <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="Data">
+            <label for="exampleFormControlInput1">marginal_adhesion</label>
+            <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="Data">
 
-               <label for="exampleFormControlInput1">single_epithelial_cell_size</label>
-               <input type="text" class="form-control" id="exampleFormControlInput4" placeholder="Data">
+            <label for="exampleFormControlInput1">single_epithelial_cell_size</label>
+            <input type="text" class="form-control" id="exampleFormControlInput4" placeholder="Data">
 
-               <label for="exampleFormControlInput1">bland_chromatin</label>
-               <input type="text" class="form-control" id="exampleFormControlInput5" placeholder="Data">
+            <label for="exampleFormControlInput1">bland_chromatin</label>
+            <input type="text" class="form-control" id="exampleFormControlInput5" placeholder="Data">
 
-               <label for="exampleFormControlInput1">normal_nucleoli</label>
-               <input type="text" class="form-control" id="exampleFormControlInput6" placeholder="Data">
+            <label for="exampleFormControlInput1">normal_nucleoli</label>
+            <input type="text" class="form-control" id="exampleFormControlInput6" placeholder="Data">
 
-               <label for="exampleFormControlInput1">mitoses</label>
-               <input type="text" class="form-control" id="exampleFormControlInput7" placeholder="Data">
+            <label for="exampleFormControlInput1">mitoses</label>
+            <input type="text" class="form-control" id="exampleFormControlInput7" placeholder="Data">
 
-               <label for="exampleFormControlInput1">clump_thickness</label>
-               <input type="text" class="form-control" id="exampleFormControlInput8" placeholder="Data">
+            <label for="exampleFormControlInput1">clump_thickness</label>
+            <input type="text" class="form-control" id="exampleFormControlInput8" placeholder="Data">
 
-               {% if error %}
-               <div class="field">
-                   <div class="control">
-                       <p class="error">{{ error }}</p>
-                   </div>
-               </div>
-               {% endif %}
+            <label for="patient">clump_thickness</label>
+            <select name="patient" class="form-control">
+                <option value="" disabled selected>Select a patient</option>
+                {% for patient in allpatients %}
+                <option value="{{patient.id}}">{{patient.last_name}}</option>
+                {% endfor %}
+            </select>
 
-               <div class="col-auto my-1">
-                   <button type="submit" class="btn btn-primary">Submit</button>
-                   <button type="button" class="btn btn-danger">Clear</button>
+            {% if error %}
+            <div class="field">
+                <div class="control">
+                    <p class="error">{{ error }}</p>
+                </div>
+            </div>
+            {% endif %}
 
-               </div>
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-danger">Clear</button>
+            </div>
 
-               <div class="col-auto my-1">
-                   <div class="alert alert-success" role="alert">
-                       {{  result}}
-                       benign (2)
-                   </div>
+            <div class="col-auto my-1">
+                <div class="alert alert-success" role="alert">
+                    {{  result}}
+                    benign (2)
+                </div>
+                <div class="alert alert-info" role="alert">
+                    malignant (4)
+                </div>
+            </div>
 
-                   <div class="alert alert-info" role="alert">
-                       malignant (4)
-                   </div>
-               </div>
-
-           </div>
         </div>
     </div>
-</form>
+</div>
 
 {% endblock %}

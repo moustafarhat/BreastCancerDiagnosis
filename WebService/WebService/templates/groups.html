@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <h2 >Groups:</h2>
+    
+    <p>&nbsp;</p>
+    
+    <div>
+        <div class="col col-sm-12 col-md-6 col-lg-5 order-sm-2 order-md-1">
+        <table style="width:100%" class="table table-striped pa-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Name</th>
+                    <th scope="col" class="text-center">Permission</th>
+                    <th scope="col" class="text-center"><a href="{{ url_for('get_groups') }}">New</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in allgroups %}
+                <tr id={{ group.foundation_id }}>
+                    <td class="text-center">{{group.name}}</td>
+                    {% if group.role == 0 %}
+                    <td class="text-center">Admin</td>
+                    {% endif %}
+                    {% if group.role == 1 %}
+                    <td class="text-center">Doctor</td>
+                    {% endif %}
+                    {% if group.role == 2 %}
+                    <td class="text-center">Other</td>
+                    {% endif %}
+                    <td class="text-center">
+                        <a href="{{ url_for('get_groups', id=group.foundation_id) }}">Edit</a>
+                        <a href="{{ url_for('deletegroup', id=group.foundation_id) }}">Delete</a>
+                    </td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div> 
+        <div class="col col-sm-12 col-md-6 col-lg-7 order-md-2 order-sm-1">
+                <div class="box">
+                        <form method="POST" action="/groups">
+                            <div class="field">
+                                    {{ form.fnd_id() }}
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                        {{ form.name(class="input is-large", placeholder="Name of foundation", autofocus="") }}
+                                </div>
+                            </div>
+                
+                            <div class="field">
+                                <div class="control">
+                                    <select name="permission" class="form-control"  required>
+                                        <option value="" disabled  {% if select_val=='' %} selected {% endif %}>Select a permission*</option>
+                                        <option value="0" {% if select_val==0 %} selected {% endif %}>Admin</option>
+                                        <option value="1" {% if select_val==1 %} selected {% endif %}>Doctor</option>
+                                        <option value="2" {% if select_val==2 %} selected {% endif %}>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                            <button name ="submit" class="button is-block is-info is-large is-fullwidth">Submit</button>
+                        </form>
+                    </div>
+        </div>
+    </div>
+    
+    <p>&nbsp;</p>
+
+    {% endblock %}

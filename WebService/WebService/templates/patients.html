@@ -37,7 +37,7 @@
                     </td>
                     <td class="text-center">
                         <a href="{{ url_for('addpatient_post', id=patient.id) }}">Edit</a>
-                        <a>Delete</a>
+                        <a href="{{ url_for('deletepatient', id=patient.id) }}">Delete</a>
                     </td> 
                 </tr>
                 {% endfor %}

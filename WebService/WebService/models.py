@@ -24,12 +24,15 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(50), unique = True, nullable = False)
     password = db.Column(db.String(100), nullable = False)
     token = db.Column(db.String(100))
+    foundation_id = db.Column(db.Integer, db.ForeignKey('foundations.foundation_id'))
+    foundation = db.relationship("Foundations", backref='users')
 
-    def __init__(self, first_name, last_name, email, password):
+    def __init__(self, first_name, last_name, email, password, foundation):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
+        self.foundation = foundation
 
     @property
     def is_authenticated(self):
@@ -65,9 +68,10 @@ class Patient(db.Model):
     city = db.Column(db.String(50))
     email = db.Column(db.String(75), unique = True, nullable = False)
     phone = db.Column(db.String(25))
+    access_permission = db.Column(db.Boolean, unique = False)
     informations = db.relationship('Patient_Informations', backref='patients', lazy=True)
 
-    def __init__(self, first_name, last_name, birth_date, address, city, email, phone):
+    def __init__(self, first_name, last_name, birth_date, address, city, email, phone, access_permission):
         self.first_name = first_name
         self.last_name = last_name
         self.birth_date = birth_date
@@ -75,6 +79,7 @@ class Patient(db.Model):
         self.city = city
         self.email = email
         self.phone = phone
+        self.access_permission = access_permission
 
 class Patient_Informations(db.Model):
     __tablename__ = 'patient_informations'
@@ -90,6 +95,10 @@ class Patient_Informations(db.Model):
     normal_nucleoli = db.Column(db.Integer)
     mitoses = db.Column(db.Integer)
     result = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    diagnosis_date = db.Column(db.DateTime)
+    status = db.Column(db.Integer)
+    user = db.relationship("User", backref="patient_informations")
     patient = db.relationship("Patient", backref="patient_informations")
 
     def __init__(self, patient_id, clump_thickness, uniformity_cell_size, uniformity_cell_shape, marginal_adhesion,
@@ -104,3 +113,14 @@ class Patient_Informations(db.Model):
         self.bland_chromatin = bland_chromatin
         self.normal_nucleoli = normal_nucleoli
         self.mitoses = mitoses
+
+class Foundations(db.Model):
+    __tablename__ = 'foundations'
+    foundation_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(75))
+    role = db.Column(db.Integer)
+    members = db.relationship('User', backref='foundations', lazy=True)
+
+    def __init__(self, name, role):
+        self.name = name
+        self.role = role
