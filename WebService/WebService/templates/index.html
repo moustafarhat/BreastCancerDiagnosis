@@ -13,31 +13,31 @@
 <div class="column is-4 is-offset-4">
     <div class="box">
         <div class="form-group" method="POST" action="/index">
-            <label for="exampleFormControlInput1">The size of uniformity cell</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Data">
+            <label for="size_uniformity_cell">Uniformity of Cell Size</label>
+            <input type="text" class="form-control" id="size_uniformity_cell" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">the shape of uniformity cell</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Data">
+            <label for="shape_uniformity_cell">Uniformity of Cell Shape</label>
+            <input type="text" class="form-control" id="shape_uniformity_cell" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">marginal_adhesion</label>
-            <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="Data">
+            <label for="marginal_adhesion">Marginal adhesion</label>
+            <input type="text" class="form-control" id="marginal_adhesion" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">single_epithelial_cell_size</label>
-            <input type="text" class="form-control" id="exampleFormControlInput4" placeholder="Data">
+            <label for="size_single_epithelial_cell">Single epithelial cell size</label>
+            <input type="text" class="form-control" id="size_single_epithelial_cell" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">bland_chromatin</label>
-            <input type="text" class="form-control" id="exampleFormControlInput5" placeholder="Data">
+            <label for="bland_chromatin">Bland chromatin</label>
+            <input type="text" class="form-control" id="bland_chromatin" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">normal_nucleoli</label>
-            <input type="text" class="form-control" id="exampleFormControlInput6" placeholder="Data">
+            <label for="normal_nucleoli">Normal nucleoli</label>
+            <input type="text" class="form-control" id="normal_nucleoli" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">mitoses</label>
-            <input type="text" class="form-control" id="exampleFormControlInput7" placeholder="Data">
+            <label for="mitoses">Mitoses</label>
+            <input type="text" class="form-control" id="mitoses" placeholder="write a number between 1 and 10">
 
-            <label for="exampleFormControlInput1">clump_thickness</label>
-            <input type="text" class="form-control" id="exampleFormControlInput8" placeholder="Data">
+            <label for="clump_thickness">Clump thickness</label>
+            <input type="text" class="form-control" id="clump_thickness" placeholder="write a number between 1 and 10">
 
-            <label for="patient">clump_thickness</label>
+            <label for="patient">Patients</label>
             <select name="patient" class="form-control">
                 <option value="" disabled selected>Select a patient</option>
                 {% for patient in allpatients %}
