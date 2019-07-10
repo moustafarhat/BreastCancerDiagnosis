@@ -12,30 +12,43 @@
 
 <div class="column is-4 is-offset-4">
     <div class="box">
-        <div class="form-group" method="POST" action="/index">
-            <label for="size_uniformity_cell">Uniformity of Cell Size</label>
-            <input type="text" class="form-control" id="size_uniformity_cell" placeholder="write a number between 1 and 10">
+        <form method="POST" action="/index">
+        <div class="field">
+            <div class="control">
+                {{ form.clump_thickness(class="input is-large", placeholder="clump_thickness") }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form.uniformity_cell_size(class="input is-large", placeholder="uniformity_cell_size") }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form.uniformity_cell_shape(class="dtpick input is-large form-control", placeholder="uniformity_cell_shape") }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form.marginal_adhesion(class="input is-large", placeholder="marginal_adhesion") }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form.single_epithelial_cell_size(class="input is-large", placeholder="single_epithelial_cell_size") }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form.bland_chromatin(class="input is-large", placeholder="bland_chromatin") }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form.normal_nucleoli(class="input is-large", placeholder="normal_nucleoli") }}
+            </div>
+        </div>
 
-            <label for="shape_uniformity_cell">Uniformity of Cell Shape</label>
-            <input type="text" class="form-control" id="shape_uniformity_cell" placeholder="write a number between 1 and 10">
-
-            <label for="marginal_adhesion">Marginal adhesion</label>
-            <input type="text" class="form-control" id="marginal_adhesion" placeholder="write a number between 1 and 10">
-
-            <label for="size_single_epithelial_cell">Single epithelial cell size</label>
-            <input type="text" class="form-control" id="size_single_epithelial_cell" placeholder="write a number between 1 and 10">
-
-            <label for="bland_chromatin">Bland chromatin</label>
-            <input type="text" class="form-control" id="bland_chromatin" placeholder="write a number between 1 and 10">
-
-            <label for="normal_nucleoli">Normal nucleoli</label>
-            <input type="text" class="form-control" id="normal_nucleoli" placeholder="write a number between 1 and 10">
-
-            <label for="mitoses">Mitoses</label>
-            <input type="text" class="form-control" id="mitoses" placeholder="write a number between 1 and 10">
-
-            <label for="clump_thickness">Clump thickness</label>
-            <input type="text" class="form-control" id="clump_thickness" placeholder="write a number between 1 and 10">
 
             <label for="patient">Patients</label>
             <select name="patient" class="form-control">
@@ -67,9 +80,9 @@
                     malignant (4)
                 </div>
             </div>
-
+        </form>
         </div>
     </div>
-</div>
+
 
 {% endblock %}
