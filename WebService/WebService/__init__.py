@@ -44,3 +44,4 @@ def unauthorized_handler():
 from .Auth.views import users_blueprint
 from .ML_Predictor.views import Predictor_blueprint
 from .Patients.views import Patients_blueprint
+from .Foundations.views import Foundations_blueprint

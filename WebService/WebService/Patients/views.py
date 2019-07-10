@@ -24,7 +24,8 @@ Patients_blueprint = Blueprint('Patients', __name__)
 @app.route('/')
 @login_required
 def index():
-    return render_template('index.html')
+    all_patients = Patient.query.all()
+    return render_template('index.html', allpatients = all_patients)
 
 @app.route('/patients')
 @login_required
@@ -51,6 +52,11 @@ def addpatient_post():
         city = request.form.get('city')
         email = request.form.get('email')
         phone = request.form.get('phone')
+        #permission = request.form.getlist('permission')
+        if request.form.getlist('permission')[0] == 'on':
+            permission = True
+        else:
+            permission = False
 
         patient = Patient.query.filter_by(email=email).first()
 
@@ -60,13 +66,14 @@ def addpatient_post():
     
         datetime_object = datetime.strptime(birthdate,'%d-%m-%Y')
         birth = date(datetime_object.year, datetime_object.month, datetime_object.day)
-        new_patient = Patient(first_name = firstname, last_name = lastname, birth_date = birth, address = address, city = city, email = email, phone = phone)
+        new_patient = Patient(first_name = firstname, last_name = lastname, birth_date = birth, address = address, city = city, email = email, phone = phone, access_permission = permission)
         db.session.add(new_patient)
         db.session.commit()
 
         return redirect(url_for('get_patients'))
     else:
         form = DateForm()
+        check = False
         if 'id' in request.args:
             patient_id = request.args.get('id')
             patient = Patient.query.get(patient_id)
@@ -77,7 +84,8 @@ def addpatient_post():
             form.email.data = patient.email
             form.phone.data = patient.phone
             form.dt.data = patient.birth_date
-        return render_template('addpatient.html', form=form)
+            check = patient.access_permission
+        return render_template('addpatient.html', form=form, check=check)
 
 @app.route('/deletepatient')
 @login_required
@@ -88,46 +96,3 @@ def deletepatient():
         db.session.delete(patient)
         db.session.commit()
     return redirect(url_for('get_patients'))
-
-@app.route('/groups', methods=['GET', 'POST'])
-@login_required
-def get_groups():
-    if request.method == "POST":
-        form = FoundationForm(request.form)
-        id = request.form.get('fnd_id')
-        name = request.form.get('name')
-        permission = request.form.get('permission')
-        
-        if id:
-            fnd = Foundations.query.get(id)
-            fnd.name = name
-            fnd.permission = permission
-            db.session.commit()
-        else:
-            new_fnd = Foundations(name = name, role = permission)
-            db.session.add(new_fnd)
-            db.session.commit()
-
-        return redirect(url_for('get_groups'))
-    else:
-        form = FoundationForm()
-        select_val = ''
-        if 'id' in request.args:
-            foundation_id = request.args.get('id')
-            fnd = Foundations.query.get(foundation_id)
-            form.fnd_id.data = fnd.foundation_id
-            form.name.data = fnd.name
-            select_val = fnd.role
-
-        all_groups = Foundations.query.all()
-        return render_template('groups.html', allgroups = all_groups, form=form, select_val = select_val)
-
-@app.route('/deletegroup')
-@login_required
-def deletegroup():
-    if 'id' in request.args:
-        foundation_id = request.args.get('id')
-        fnd = Foundations.query.get(foundation_id)
-        db.session.delete(fnd)
-        db.session.commit()
-    return redirect(url_for('get_groups'))
