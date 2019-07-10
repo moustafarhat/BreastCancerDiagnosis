@@ -83,8 +83,11 @@ def result():
       bland_chromatin = request.form.get('bland_chromatin')
       normal_nucleoli = request.form.get('normal_nucleoli')
 
+      ValuesList=[float(clump_thickness),float(uniformity_cell_size),float(uniformity_cell_shape),float(marginal_adhesion),float(single_epithelial_cell_size),float(bland_chromatin),float(normal_nucleoli)]
+
+
       #try:
-      result = M_ValuePredictor1([clump_thickness,uniformity_cell_size,uniformity_cell_shape,marginal_adhesion,single_epithelial_cell_size,bland_chromatin,normal_nucleoli])
+      result = M_ValuePredictor1(ValuesList)
       return str(result)
       #except Exception as e: 
       #   return e
