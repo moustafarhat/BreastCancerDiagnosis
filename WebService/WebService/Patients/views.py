@@ -21,11 +21,11 @@ Patients_blueprint = Blueprint('Patients', __name__)
 ################
 #### routes ####
 ################
-@app.route('/')
-@login_required
-def index():
-    all_patients = Patient.query.all()
-    return render_template('index.html', allpatients = all_patients)
+#@app.route('/')
+#@login_required
+#def index():
+#    all_patients = Patient.query.all()
+#    return render_template('index.html', allpatients = all_patients)
 
 @app.route('/patients')
 @login_required

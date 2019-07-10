@@ -12,77 +12,76 @@
 
 <div class="column is-4 is-offset-4">
     <div class="box">
-        <form method="POST" action="/index">
+    <form method="POST" action="/">
         <div class="field">
             <div class="control">
-                {{ form.clump_thickness(class="input is-large", placeholder="clump_thickness") }}
+                {{ form.clump_thickness(class="input is-large", placeholder="Clump thickness") }}
             </div>
         </div>
         <div class="field">
             <div class="control">
-                {{ form.uniformity_cell_size(class="input is-large", placeholder="uniformity_cell_size") }}
+                {{ form.uniformity_cell_size(class="input is-large", placeholder="Uniformity of cell size") }}
             </div>
         </div>
         <div class="field">
             <div class="control">
-                {{ form.uniformity_cell_shape(class="dtpick input is-large form-control", placeholder="uniformity_cell_shape") }}
+                {{ form.uniformity_cell_shape(class="input is-large", placeholder="Uniformity of cell shape") }}
             </div>
         </div>
         <div class="field">
             <div class="control">
-                {{ form.marginal_adhesion(class="input is-large", placeholder="marginal_adhesion") }}
+                {{ form.marginal_adhesion(class="input is-large", placeholder="Marginal adhesion") }}
             </div>
         </div>
         <div class="field">
             <div class="control">
-                {{ form.single_epithelial_cell_size(class="input is-large", placeholder="single_epithelial_cell_size") }}
+                {{ form.single_epithelial_cell_size(class="input is-large", placeholder="Single epithelial cell size") }}
             </div>
         </div>
         <div class="field">
             <div class="control">
-                {{ form.bland_chromatin(class="input is-large", placeholder="bland_chromatin") }}
+                {{ form.bland_chromatin(class="input is-large", placeholder="Bland chromatin") }}
             </div>
         </div>
         <div class="field">
             <div class="control">
-                {{ form.normal_nucleoli(class="input is-large", placeholder="normal_nucleoli") }}
+                {{ form.normal_nucleoli(class="input is-large", placeholder="Normal nucleoli") }}
             </div>
         </div>
 
 
-            <label for="patient">Patients</label>
-            <select name="patient" class="form-control">
-                <option value="" disabled selected>Select a patient</option>
-                {% for patient in allpatients %}
-                <option value="{{patient.id}}">{{patient.last_name}}</option>
-                {% endfor %}
-            </select>
+        <label for="patient">Patients</label>
+        <select name="patient" class="form-control">
+            <option value="" disabled selected>Select a patient</option>
+            {% for patient in allpatients %}
+            <option value="{{patient.id}}">{{patient.last_name}}</option>
+            {% endfor %}
+        </select>
 
-            {% if error %}
-            <div class="field">
-                <div class="control">
-                    <p class="error">{{ error }}</p>
-                </div>
+        {% if error %}
+        <div class="field">
+            <div class="control">
+                <p class="error">{{ error }}</p>
             </div>
-            {% endif %}
-
-            <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-danger">Clear</button>
-            </div>
-
-            <div class="col-auto my-1">
-                <div class="alert alert-success" role="alert">
-                    {{  result}}
-                    benign (2)
-                </div>
-                <div class="alert alert-info" role="alert">
-                    malignant (4)
-                </div>
-            </div>
-        </form>
         </div>
+        {% endif %}
+
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+        <div class="col-auto my-1">
+            <div class="alert alert-success" role="alert">
+                {{  result}}
+                benign (2)
+            </div>
+            <div class="alert alert-info" role="alert">
+                malignant (4)
+            </div>
+        </div>
+    </form>
     </div>
+</div>
 
 
 {% endblock %}

@@ -39,7 +39,7 @@ def login_post():
         if user is not None and check_password_hash(user.password, password):
             login_user(user)
             flash('Thanks for logging in, {}'.format(user.email))
-            return redirect(url_for('index'))
+            return redirect(url_for('result'))
         else:
             flash('ERROR! Incorrect login credentials.')
     return render_template('login.html', form=form)
