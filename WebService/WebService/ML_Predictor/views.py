@@ -6,6 +6,7 @@ from flask import render_template, Blueprint
 from flask_login import login_required
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
@@ -48,10 +49,23 @@ def M_ValuePredictor1(to_predict_list):
 
 #ML_Model_Cancer_Predictor 2  function
 def M_ValuePredictor2(to_predict_list):
-   to_predict = np.array(to_predict_list).reshape(1,12)
-   loaded_model = load_model('save_model/my_net.model')
-   result = loaded_model.predict(to_predict)
-   return result[0]
+
+   finalresult=0
+
+   path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\SerializedModels\ML_Model_Cancer_Predictor2.model"
+   
+   model = load_model(path)
+
+   data_patient_informations =np.array([to_predict_list])
+
+   result  = model.predict(data_patient_informations)
+
+   if result[len(result)-1] < 3:
+       finalresult = 2
+   else :
+       finalresult = 4
+
+   return finalresult
 
 
 #Get result from serialized Models
@@ -84,10 +98,10 @@ def result():
       normal_nucleoli = request.form.get('normal_nucleoli')
 
       ValuesList=[float(clump_thickness),float(uniformity_cell_size),float(uniformity_cell_shape),float(marginal_adhesion),float(single_epithelial_cell_size),float(bland_chromatin),float(normal_nucleoli)]
-
-
+      
       #try:
       result = M_ValuePredictor1(ValuesList)
+
       return str(result)
       #except Exception as e: 
       #   return e
