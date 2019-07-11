@@ -33,7 +33,7 @@
                     <td class="text-center">{{patient.email}}</td>
                     <td class="text-center">{{patient.phone}}</td>
                     <td class="text-center">
-                        <a>Results</a>
+                        <a href="{{ url_for('get_results', id=patient.id) }}">Results</a>
                     </td>
                     <td class="text-center">
                         <a href="{{ url_for('addpatient_post', id=patient.id) }}">Edit</a>

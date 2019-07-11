@@ -4,7 +4,7 @@
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required
-from ..models import User , Patient, Foundations, db
+from ..models import User , Patient, Foundations,Patient_Informations, db
 from WebService import app
 from flask_wtf import Form
 from wtforms import DateField, TextField
@@ -96,3 +96,13 @@ def deletepatient():
         db.session.delete(patient)
         db.session.commit()
     return redirect(url_for('get_patients'))
+
+
+@app.route('/patientresults')
+@login_required
+def get_results():
+    if request.method == "GET":
+        if 'id' in request.args:
+            patient_id = request.args.get('id')
+            allresults = Patient_Informations.query.filter_by(patient_id=patient_id).all()
+            return render_template('overview_results.html', allresults = allresults)

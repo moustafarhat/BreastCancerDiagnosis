@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <h2 >Result's Overview:</h2>
+    
+    <p>&nbsp;</p>
+    
+    <div>
+        <table style="width:100%" class="table table-striped pa-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Taked by</th>
+                    <th scope="col" class="text-center">Date</th>
+                    <th scope="col" class="text-center">Model</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Result</th>
+                    <th scope="col" class="text-center">#</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for result in allresults %}
+                <tr id={{ result.id }}>
+                    <td class="text-center">{{result.user.last_name}}</td>
+                    <td class="text-center">{{result.diagnosis_date.strftime('%Y-%m-%d %H:%M:%S')}}</td>
+                    <td class="text-center">{{result.model}}</td>
+                    {% if result.status == 0 %}
+                    <td class="text-center">Pending</td>
+                    {% endif %}
+                    {% if result.status == 1 %}
+                    <td class="text-center">Approved</td>
+                    {% endif %}
+                    {% if result.status == 2 %}
+                    <td class="text-center">Rejected</td>
+                    {% endif %}
+                    {% if result.result == 2 %}
+                    <td class="text-center">benign</td>
+                    {% endif %}
+                    {% if result.result == 4 %}
+                    <td class="text-center">malignant</td>
+                    {% endif %}
+                    {% if result.model == 1 %}
+                    <td class="text-center">
+                        <a href="{{ url_for('result_detail', id_model1=result.id) }}">More details</a>
+                    </td> 
+                    {% endif %}
+                    {% if result.model == 2 %}
+                    <td class="text-center">
+                        <a href="{{ url_for('result_detail', id_model2=result.id) }}">More details</a>
+                    </td> 
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+    
+    <p>&nbsp;</p>
+
+    {% endblock %}

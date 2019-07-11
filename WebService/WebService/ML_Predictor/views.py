@@ -195,9 +195,25 @@ def result_detail():
          return render_template("result.html",result = result, result1 = result1, form =form, id_model1 = id_model1)
       if 'id_model2' in request.args:
          id_model2 = request.args.get('id_model2')
-         result2 = Patient_Informations.query.filter_by(id=id_model1).first()
+         result2 = Patient_Informations.query.filter_by(id=id_model2).first()
          result = result2
          form = ResultForm()
          form.result2_id.data = id_model2
          return render_template("result.html",result = result, result2 = result2, form =form, id_model2 = id_model2)
-      
+   if request.method == "POST":
+      form = ResultForm(request.form)
+      id1 = form.result1_id.data
+      id2 = form.result2_id.data
+      if id1:
+         p_info1 = Patient_Informations.query.get(id1)
+         p_info1.status = request.form.get('status1')
+      if id2:
+         p_info1 = Patient_Informations.query.get(id2)
+         p_info1.status = request.form.get('status2')
+      db.session.commit()
+      if id1 and id2:
+         return redirect(url_for('result_detail', id_model1=id1, id_model2=id2))
+      if id1:
+         return redirect(url_for('result_detail', id_model1=id1))
+      if id2:
+         return redirect(url_for('result_detail', id_model2=id2))
