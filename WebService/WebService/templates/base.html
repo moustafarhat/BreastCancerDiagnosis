@@ -59,9 +59,11 @@
                             </a>
                             {% endif %}
                             {% endif %}
+                            {% if current_user.is_authenticated == false %}
                             <a href="{{ url_for('login_post') }}" class="navbar-item">
                                 Login
                             </a>
+                            {% endif %}
                             {% if current_user.is_authenticated %}
                             {% if current_user.foundation.role == 0 %}
                             <a href="{{ url_for('signup') }}" class="navbar-item">

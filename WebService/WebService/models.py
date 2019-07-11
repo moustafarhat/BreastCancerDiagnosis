@@ -27,12 +27,12 @@ class User(db.Model, UserMixin):
     foundation_id = db.Column(db.Integer, db.ForeignKey('foundations.foundation_id'))
     foundation = db.relationship("Foundations", backref='users')
 
-    def __init__(self, first_name, last_name, email, password, foundation):
+    def __init__(self, first_name, last_name, email, password, foundation_id):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
-        self.foundation = foundation
+        self.foundation_id = foundation_id
 
     @property
     def is_authenticated(self):
