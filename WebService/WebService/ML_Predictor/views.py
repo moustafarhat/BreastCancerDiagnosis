@@ -2,8 +2,8 @@
 #### imports ####
 #################
 
-from flask import render_template, Blueprint
-from flask_login import login_required
+from flask import render_template, Blueprint, url_for, redirect
+from flask_login import login_required, current_user
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -11,12 +11,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 from sklearn import model_selection
+from keras.models import load_model
 import os
 from ..models import Patient_Informations, db
 from WebService import app
 from .forms import *
 import pickle
 import sys
+from datetime import datetime
 
 
 ################
@@ -94,17 +96,57 @@ def result():
       uniformity_cell_shape = request.form.get('uniformity_cell_shape')
       marginal_adhesion = request.form.get('marginal_adhesion')
       single_epithelial_cell_size = request.form.get('single_epithelial_cell_size')
+      bare_nuclei = request.form.get('bare_nuclei')
       bland_chromatin = request.form.get('bland_chromatin')
       normal_nucleoli = request.form.get('normal_nucleoli')
+      mitoses = request.form.get('mitoses')
+      patient_id = request.form.get('patient')
+      user_id = current_user.user_id
 
       ValuesList=[float(clump_thickness),float(uniformity_cell_size),float(uniformity_cell_shape),float(marginal_adhesion),float(single_epithelial_cell_size),float(bland_chromatin),float(normal_nucleoli)]
       
-      #try:
-      result = M_ValuePredictor1(ValuesList)
+      try:
+         result_list = M_ValuePredictor1(ValuesList)
+         result1 = int(result_list[0])
+         result2 = M_ValuePredictor2(ValuesList)
 
-      return str(result)
-      #except Exception as e: 
-      #   return e
+         p_info1 = Patient_Informations(patient_id = patient_id, 
+                                       clump_thickness = clump_thickness, 
+                                       uniformity_cell_size = uniformity_cell_size,
+                                       uniformity_cell_shape = uniformity_cell_shape, 
+                                       marginal_adhesion = marginal_adhesion,
+                                       single_epithelial_cell_size = single_epithelial_cell_size,
+                                       bare_nuclei = bare_nuclei, 
+                                       bland_chromatin = bland_chromatin, 
+                                       normal_nucleoli = normal_nucleoli, 
+                                       mitoses = mitoses,
+                                       result = result1, 
+                                       user_id = user_id,
+                                       diagnosis_date = datetime.now(), 
+                                       status = 0,
+                                       model = 1)
+         db.session.add(p_info1)
+         db.session.commit()
+         p_info2 = Patient_Informations(patient_id = patient_id, 
+                                       clump_thickness = clump_thickness, 
+                                       uniformity_cell_size = uniformity_cell_size,
+                                       uniformity_cell_shape = uniformity_cell_shape, 
+                                       marginal_adhesion = marginal_adhesion,
+                                       single_epithelial_cell_size = single_epithelial_cell_size,
+                                       bare_nuclei = bare_nuclei, 
+                                       bland_chromatin = bland_chromatin, 
+                                       normal_nucleoli = normal_nucleoli, 
+                                       mitoses = mitoses,
+                                       result = result2, 
+                                       user_id = user_id,
+                                       diagnosis_date = datetime.now(), 
+                                       status = 0,
+                                       model = 2)
+         db.session.add(p_info2)
+         db.session.commit()
+         return redirect(url_for('result_detail', id_model1=p_info1.id, id_model2=p_info2.id))
+      except Exception as e: 
+         print(e)
 
         #TODO::In future we will compare result from differents Models
         #to_predict_list = request.form.to_dict()
@@ -129,3 +171,33 @@ def result():
      #       pass
    
       return render_template("index.html",form =form)
+
+@app.route('/result', methods=["GET", "POST"])
+@login_required
+def result_detail():
+   if request.method == "GET":
+      if 'id_model1' in request.args and 'id_model2' in request.args:
+         id_model1 = request.args.get('id_model1')
+         id_model2 = request.args.get('id_model2')
+         result1 = Patient_Informations.query.filter_by(id=id_model1).first()
+         result2 = Patient_Informations.query.filter_by(id=id_model2).first()
+         result = result2
+         form = ResultForm()
+         form.result1_id.data = id_model1
+         form.result2_id.data = id_model2
+         return render_template("result.html",result = result, result1 = result1, result2 = result2, form =form, id_model1 = id_model1, id_model2 = id_model2)
+      if 'id_model1' in request.args:
+         id_model1 = request.args.get('id_model1')
+         result1 = Patient_Informations.query.filter_by(id=id_model1).first()
+         result = result1
+         form = ResultForm()
+         form.result1_id.data = id_model1
+         return render_template("result.html",result = result, result1 = result1, form =form, id_model1 = id_model1)
+      if 'id_model2' in request.args:
+         id_model2 = request.args.get('id_model2')
+         result2 = Patient_Informations.query.filter_by(id=id_model1).first()
+         result = result2
+         form = ResultForm()
+         form.result2_id.data = id_model2
+         return render_template("result.html",result = result, result2 = result2, form =form, id_model2 = id_model2)
+      

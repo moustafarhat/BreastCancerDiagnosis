@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container result_text">
+    <div>
+        <h2 >Details:</h2>
+
+        <div class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Patient: {{result.patient.first_name +" "+  result.patient.last_name}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-8">
+                <h4>Taked by: {{result.user.first_name +" "+ result.user.last_name}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Clump thickness: {{result.clump_thickness}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Uniformity cell size: {{result.uniformity_cell_size}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Uniformity cell shape: {{result.uniformity_cell_shape}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Marginal adhesion: {{result.marginal_adhesion}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>single epithelial cell size: {{result.single_epithelial_cell_size}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Bare nuclei: {{result.bare_nuclei}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Bland chromatin: {{result.bland_chromatin}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Normal nucleoli: {{result.normal_nucleoli}}</h4>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-4">
+                <h4>Mitoses: {{result.mitoses}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12 col-md-12 col-lg-12">
+                <h4>Date: {{result.diagnosis_date.strftime('%Y-%m-%d %H:%M:%S')}}</h4>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h2 >Results:</h2>
+                <form method="POST" action="/result">
+                    {% if id_model1 %}
+                    <div class="row">
+                    <div class="col col-sm-12 col-md-6 col-lg-4">
+                        <div class="field">
+                            {{ form.result1_id() }}
+                        </div>
+                        <h4>Model: {{result1.model}}</h4>
+                    </div>
+                    <div class="col col-sm-12 col-md-6 col-lg-4">
+                        {% if result1.result==2 %} 
+                        <h4>Result: benign</h4>
+                        {% endif %}
+                        {% if result1.result==4 %} 
+                        <h4>Result: malignant</h4>
+                        {% endif %}
+                    </div>
+                    <div class="col col-sm-12 col-md-6 col-lg-4">
+                        <div class="control">
+                            <select name="status1" class="form-control"  required>
+                                <option value="" disabled  {% if select_val=='' %} selected {% endif %}>Change status*</option>
+                                <option value="0" {% if result1.status==0 %} selected {% endif %}>Pending</option>
+                                <option value="1" {% if result1.status==1 %} selected {% endif %}>Approved</option>
+                                <option value="2" {% if result1.stauts==2 %} selected {% endif %}>Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    {% endif %}
+                    {% if id_model2 %}
+                    <div class="row">
+                    <div class="col col-sm-12 col-md-6 col-lg-4">
+                        <div class="field">
+                            {{ form.result2_id() }}
+                        </div>
+                        <h4>Model: {{result2.model}}</h4>
+                    </div>
+                    <div class="col col-sm-12 col-md-6 col-lg-4">
+                        {% if result2.result==2 %} 
+                        <h4>Result: benign</h4>
+                        {% endif %}
+                        {% if result2.result==4 %} 
+                        <h4>Result: malignant</h4>
+                        {% endif %}
+                    </div>
+                    <div class="col col-sm-12 col-md-6 col-lg-4">
+                            <div class="control">
+                                <select name="status2" class="form-control"  required>
+                                    <option value="" disabled  {% if select_val=='' %} selected {% endif %}>Change status*</option>
+                                    <option value="0" {% if result2.status==0 %} selected {% endif %}>Pending</option>
+                                    <option value="1" {% if result2.status==1 %} selected {% endif %}>Approved</option>
+                                    <option value="2" {% if result2.stauts==2 %} selected {% endif %}>Rejected</option>
+                                </select>
+                            </div>
+                    </div>
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                    <div class="col col-sm-12 col-md-6 col-lg-12">
+                        <button name ="submit" class="button is-block is-info is-large is-fullwidth">Submit</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <p>&nbsp;</p>
+</div>
+{% endblock %}

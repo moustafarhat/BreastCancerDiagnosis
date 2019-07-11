@@ -98,11 +98,12 @@ class Patient_Informations(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     diagnosis_date = db.Column(db.DateTime)
     status = db.Column(db.Integer)
+    model = db.Column(db.Integer)
     user = db.relationship("User", backref="patient_informations")
     patient = db.relationship("Patient", backref="patient_informations")
 
     def __init__(self, patient_id, clump_thickness, uniformity_cell_size, uniformity_cell_shape, marginal_adhesion,
-     single_epithelial_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses):
+     single_epithelial_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses, result, user_id,diagnosis_date, status, model):
         self.patient_id = patient_id
         self.clump_thickness = clump_thickness
         self.uniformity_cell_size = uniformity_cell_size
@@ -113,6 +114,11 @@ class Patient_Informations(db.Model):
         self.bland_chromatin = bland_chromatin
         self.normal_nucleoli = normal_nucleoli
         self.mitoses = mitoses
+        self.result = result
+        self.user_id = user_id
+        self.diagnosis_date = diagnosis_date
+        self.status = status
+        self.model = model
 
 class Foundations(db.Model):
     __tablename__ = 'foundations'
